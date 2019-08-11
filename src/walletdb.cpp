@@ -853,7 +853,7 @@ DBErrors CWalletDB::ZapWalletTx(CWallet* pwallet, vector<CWalletTx>& vWtx)
 void ThreadFlushWalletDB(const string& strFile)
 {
     // Make this thread recognisable as the wallet flushing thread
-    RenameThread("phore-wallet");
+    RenameThread("soverain-wallet");
 
     static bool fOneThread;
     if (fOneThread)
@@ -1152,17 +1152,17 @@ bool CWalletDB::ReadZerocoinSpendSerialEntry(const CBigNum& bnSerial)
 bool CWalletDB::WriteDeterministicMint(const CDeterministicMint& dMint)
 {
     uint256 hash = dMint.GetPubcoinHash();
-    return Write(make_pair(string("dzphr"), hash), dMint, true);
+    return Write(make_pair(string("dzsove"), hash), dMint, true);
 }
 
 bool CWalletDB::ReadDeterministicMint(const uint256& hashPubcoin, CDeterministicMint& dMint)
 {
-    return Read(make_pair(string("dzphr"), hashPubcoin), dMint);
+    return Read(make_pair(string("dzsove"), hashPubcoin), dMint);
 }
 
 bool CWalletDB::EraseDeterministicMint(const uint256& hashPubcoin)
 {
-    return Erase(make_pair(string("dzphr"), hashPubcoin));
+    return Erase(make_pair(string("dzsove"), hashPubcoin));
 }
 
 
@@ -1222,7 +1222,7 @@ bool CWalletDB::ArchiveDeterministicOrphan(const CDeterministicMint& dMint)
     if (!Write(make_pair(string("dzco"), dMint.GetPubcoinHash()), dMint))
         return error("%s: write failed", __func__);
 
-    if (!Erase(make_pair(string("dzphr"), dMint.GetPubcoinHash())))
+    if (!Erase(make_pair(string("dzsove"), dMint.GetPubcoinHash())))
         return error("%s: failed to erase", __func__);
 
     return true;
@@ -1267,7 +1267,7 @@ bool CWalletDB::ReadCurrentSeedHash(uint256& hashSeed)
     return Read(string("seedhash"), hashSeed);
 }
 
-bool CWalletDB::WriteZPHRSeed(const uint256& hashSeed, const vector<unsigned char>& seed)
+bool CWalletDB::WriteZSOVESeed(const uint256& hashSeed, const vector<unsigned char>& seed)
 {
     if (!WriteCurrentSeedHash(hashSeed))
         return error("%s: failed to write current seed hash", __func__);
@@ -1275,13 +1275,13 @@ bool CWalletDB::WriteZPHRSeed(const uint256& hashSeed, const vector<unsigned cha
     return Write(make_pair(string("dzs"), hashSeed), seed);
 }
 
-bool CWalletDB::EraseZPHRSeed()
+bool CWalletDB::EraseZSOVESeed()
 {
     uint256 hash;
     if(!ReadCurrentSeedHash(hash)){
         return error("Failed to read a current seed hash");
     }
-    if(!WriteZPHRSeed(hash, ToByteVector(base_uint<256>(0) << 256))) {
+    if(!WriteZSOVESeed(hash, ToByteVector(base_uint<256>(0) << 256))) {
         return error("Failed to write empty seed to wallet");
     }
     if(!WriteCurrentSeedHash(0)) {
@@ -1291,27 +1291,27 @@ bool CWalletDB::EraseZPHRSeed()
     return true;
 }
 
-bool CWalletDB::EraseZPHRSeed_deprecated()
+bool CWalletDB::EraseZSOVESeed_deprecated()
 {
     return Erase(string("dzs"));
 }
 
-bool CWalletDB::ReadZPHRSeed(const uint256& hashSeed, vector<unsigned char>& seed)
+bool CWalletDB::ReadZSOVESeed(const uint256& hashSeed, vector<unsigned char>& seed)
 {
     return Read(make_pair(string("dzs"), hashSeed), seed);
 }
 
-bool CWalletDB::ReadZPHRSeed_deprecated(uint256& seed)
+bool CWalletDB::ReadZSOVESeed_deprecated(uint256& seed)
 {
     return Read(string("dzs"), seed);
 }
 
-bool CWalletDB::WriteZPHRCount(const uint32_t& nCount)
+bool CWalletDB::WriteZSOVECount(const uint32_t& nCount)
 {
     return Write(string("dzc"), nCount);
 }
 
-bool CWalletDB::ReadZPHRCount(uint32_t& nCount)
+bool CWalletDB::ReadZSOVECount(uint32_t& nCount)
 {
     return Read(string("dzc"), nCount);
 }
@@ -1390,7 +1390,7 @@ std::list<CDeterministicMint> CWalletDB::ListDeterministicMints()
         // Read next record
         CDataStream ssKey(SER_DISK, CLIENT_VERSION);
         if (fFlags == DB_SET_RANGE)
-            ssKey << make_pair(string("dzphr"), uint256(0));
+            ssKey << make_pair(string("dzsove"), uint256(0));
         CDataStream ssValue(SER_DISK, CLIENT_VERSION);
         int ret = ReadAtCursor(pcursor, ssKey, ssValue, fFlags);
         fFlags = DB_NEXT;
@@ -1405,7 +1405,7 @@ std::list<CDeterministicMint> CWalletDB::ListDeterministicMints()
         // Unserialize
         string strType;
         ssKey >> strType;
-        if (strType != "dzphr")
+        if (strType != "dzsove")
             break;
 
         uint256 hashPubcoin;

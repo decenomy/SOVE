@@ -100,4 +100,4 @@ AlexMomo
 snogcel
 bertlebbert
 
-As well as everyone that helped translating on [Transifex](https://www.transifex.com/phore-project/phore-project-translations).
+As well as everyone that helped translating on [Transifex](https://www.transifex.com/soverain-project/soverain-project-translations).

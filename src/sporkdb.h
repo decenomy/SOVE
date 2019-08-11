@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PHORE_CSPORKDB_H
-#define PHORE_CSPORKDB_H
+#ifndef SOVERAIN_CSPORKDB_H
+#define SOVERAIN_CSPORKDB_H
 
 #include <boost/filesystem/path.hpp>
 #include "leveldbwrapper.h"
@@ -25,4 +25,4 @@ public:
 };
 
 
-#endif //PHORE_CSPORKDB_H
+#endif //SOVERAIN_CSPORKDB_H

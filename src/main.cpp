@@ -3,7 +3,7 @@
 // Copyright (c) 2012-2013 The PPCoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2019 The Phore Developers
+// Copyright (c) 2017-2019 Soverain cryptocurrency developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -54,7 +54,7 @@ using namespace std;
 using namespace libzerocoin;
 
 #if defined(NDEBUG)
-#error "Phore cannot be compiled without assertions."
+#error "Soverain cannot be compiled without assertions."
 #endif
 
 // 6 comes from OPCODE (1) + vch.size() (1) + BIGNUM size (4)
@@ -99,7 +99,7 @@ bool fAlerts = DEFAULT_ALERTS;
 unsigned int nStakeMinAge = 3 * 60 * 60;
 int64_t nReserveBalance = 0;
 
-/** Fees smaller than this (in uphr) are considered zero fee (for relaying and mining)
+/** Fees smaller than this (in usove) are considered zero fee (for relaying and mining)
  * We are ~100 times smaller then bitcoin now (2015-06-23), set minRelayTxFee only 10 times higher
  * so it's still 10 times lower comparing to bitcoin.
  */
@@ -1254,16 +1254,16 @@ bool ContextualCheckZerocoinMint(const CTransaction& tx, const PublicCoin& coin,
 }
 
 bool ContextualCheckZerocoinSpend(const CTransaction& tx, const CoinSpend& spend, CBlockIndex* pindex, const uint256& hashBlock) {
-    //Check to see if the zPHR is properly signed
+    //Check to see if the zSOVE is properly signed
     if (pindex->nHeight > Params().Zerocoin_LastOldParams()) {
         if (!spend.HasValidSignature())
-            return error("%s: V2 zPHR spend does not have a valid signature", __func__);
+            return error("%s: V2 zSOVE spend does not have a valid signature", __func__);
 
         libzerocoin::SpendType expectedType = libzerocoin::SpendType::SPEND;
         if (tx.IsCoinStake())
             expectedType = libzerocoin::SpendType::STAKE;
         if (spend.getSpendType() != expectedType) {
-            return error("%s: trying to spend zPHR without the correct spend type. txid=%s", __func__,
+            return error("%s: trying to spend zSOVE without the correct spend type. txid=%s", __func__,
                          tx.GetHash().GetHex());
         }
     }
@@ -1271,13 +1271,13 @@ bool ContextualCheckZerocoinSpend(const CTransaction& tx, const CoinSpend& spend
     //Reject serial's that are already in the blockchain
     int nHeightTx = 0;
     if (IsSerialInBlockchain(spend.getCoinSerialNumber(), nHeightTx))
-        return error("%s : zPHR spend with serial %s is already in block %d\n", __func__,
+        return error("%s : zSOVE spend with serial %s is already in block %d\n", __func__,
                      spend.getCoinSerialNumber().GetHex(), nHeightTx);
 
     //Reject serial's that are not in the acceptable value range
     libzerocoin::ZerocoinParams* paramsToUse = spend.getVersion() < libzerocoin::PrivateCoin::PUBKEY_VERSION ? Params().OldZerocoin_Params() : Params().Zerocoin_Params();
     if (!spend.HasValidSerial(paramsToUse))
-        return error("%s : zPHR spend with serial %s from tx %s is not in valid range\n", __func__,
+        return error("%s : zSOVE spend with serial %s from tx %s is not in valid range\n", __func__,
                      spend.getCoinSerialNumber().GetHex(), tx.GetHash().GetHex());
 
     return true;
@@ -1583,7 +1583,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransa
             //Check that txid is not already in the chain
             int nHeightTx = 0;
             if (IsTransactionInChain(tx.GetHash(), nHeightTx))
-                return state.Invalid(error("AcceptToMemoryPool : zPHR spend tx %s already in block %d",
+                return state.Invalid(error("AcceptToMemoryPool : zSOVE spend tx %s already in block %d",
                                            tx.GetHash().GetHex(), nHeightTx), REJECT_DUPLICATE, "bad-txns-inputs-spent");
 
             //Check for double spending of serial #'s
@@ -1593,7 +1593,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransa
                 CoinSpend spend = TxInToZerocoinSpend(txIn);
                 if (!ContextualCheckZerocoinSpend(tx, spend, chainActive.Tip(), 0))
                     return state.Invalid(error("%s: ContextualCheckZerocoinSpend failed for tx %s", __func__,
-                                               tx.GetHash().GetHex()), REJECT_INVALID, "bad-txns-invalid-zphr");
+                                               tx.GetHash().GetHex()), REJECT_INVALID, "bad-txns-invalid-zsove");
             }
         } else {
             LOCK(pool.cs);
@@ -1615,7 +1615,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransa
                 }
             }
 
-            // Check that zPHR mints are not already known
+            // Check that zSOVE mints are not already known
             if (tx.IsZerocoinMint()) {
                 for (auto& out : tx.vout) {
                     if (!out.IsZerocoinMint())
@@ -1882,7 +1882,7 @@ bool AcceptableInputs(CTxMemPool& pool, CValidationState& state, const CTransact
                 }
             }
 
-            // Check that zPHR mints are not already known
+            // Check that zSOVE mints are not already known
             if (tx.IsZerocoinMint()) {
                 for (auto& out : tx.vout) {
                     if (!out.IsZerocoinMint())
@@ -2161,24 +2161,60 @@ double ConvertBitsToDouble(unsigned int nBits)
 
 int64_t GetBlockValue(int nHeight)
 {
-    if (nHeight == 0) {
-        return 17500000 * COIN;
-    } else if (nHeight > 0 && nHeight <= 200) {
-        return 2500 * COIN;
-    } else if (nHeight > 200 && nHeight <= 775600) {
-        return 7 * COIN;
-    } else if (nHeight > 775600 && nHeight <= 1043999) {
-        return 4.5 * COIN;
-    } else if (nHeight > 1043999 && nHeight <= 1562398) {
-        return 3.6 * COIN;
-    } else {
-        return 2.7 * COIN;
+    int64_t nSubsidy = 0;
+
+    if (nHeight >= 11933456) //~11.5yrs
+        return nSubsidy;
+
+    switch (nHeight){
+        case             1:       nSubsidy = Params().MaxMoneyOut() * 0.0065; break;
+        case       2 ... 40320:   nSubsidy =  0.1   * COIN; break;
+        case   40321 ... 80640:   nSubsidy =  0.75  * COIN; break;
+        case   80641 ... 120960:  nSubsidy =  1.5   * COIN; break;
+        case  120961 ... 161280:  nSubsidy =  2.25  * COIN; break;
+        case  161281 ... 201600:  nSubsidy =  3     * COIN; break;
+        case  201601 ... 241920:  nSubsidy =  3.75  * COIN; break;
+        case  241921 ... 282240:  nSubsidy =  4.5   * COIN; break;
+        case  282241 ... 322560:  nSubsidy =  5.25  * COIN; break;
+        case  322561 ... 362880:  nSubsidy =  6     * COIN; break;
+        case  362881 ... 403200:  nSubsidy =  6.75  * COIN; break;
+        case  403201 ... 443520:  nSubsidy =  7.5   * COIN; break;
+        case  443521 ... 483840:  nSubsidy =  8.25  * COIN; break;
+        case  483841 ... 524160:  nSubsidy =  9     * COIN; break;
+        case  524161 ... 564480:  nSubsidy =  9.75  * COIN; break;
+        case  564481 ... 604800:  nSubsidy =  10.5  * COIN; break;
+        case  604801 ... 645120:  nSubsidy =  11.25 * COIN; break;
+        case  645121 ... 685440:  nSubsidy =  12    * COIN; break;
+        case  685441 ... 725760:  nSubsidy =  12.75 * COIN; break;
+        case  725761 ... 766080:  nSubsidy =  13.5  * COIN; break;
+        case  766081 ... 806400:  nSubsidy =  14.25 * COIN; break;
+        case  806401 ... 1000000: nSubsidy =  15    * COIN; break;
+        case 1000001 ... 2000000: nSubsidy =  13.5  * COIN; break;
+        case 2000001 ... 3000000: nSubsidy =  12    * COIN; break;
+        case 3000001 ... 4000000: nSubsidy =  10.5  * COIN; break;
+        case 4000001 ... 5000000: nSubsidy =  9     * COIN; break;
+        case 5000001 ... 6000000: nSubsidy =  7.5   * COIN; break;
+        case 6000001 ... 7000000: nSubsidy =  6     * COIN; break;
+        case 7000001 ... 8000000: nSubsidy =  4.5   * COIN; break;
+                         default: nSubsidy =  3     * COIN; break;
     }
+
+    return nSubsidy;
 }
 
 int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
 {
-    int64_t ret = blockValue / 5 * 3;
+    int64_t ret = 0;
+
+    if (nHeight < 225) 
+        return ret;
+
+    switch (nHeight){
+        case      1 ... 161280: ret = blockValue / 100 * 80; break;
+        case 161281 ... 362880: ret = blockValue / 100 * 85; break;
+        default:                ret = blockValue / 100 * 90; break;
+    }
+
     return ret;
 }
 
@@ -2280,7 +2316,9 @@ void Misbehaving(NodeId pnode, int howmuch)
     if (state == NULL)
         return;
 
-    state->nMisbehavior += howmuch;
+    if(chainActive.Height() > Params().LAST_POW_BLOCK())
+        state->nMisbehavior += howmuch;
+
     int banscore = GetArg("-banscore", 100);
     if (state->nMisbehavior >= banscore && state->nMisbehavior - howmuch < banscore) {
         LogPrintf("Misbehaving: %s (%d -> %d) BAN THRESHOLD EXCEEDED\n", state->name, state->nMisbehavior - howmuch, state->nMisbehavior);
@@ -2476,7 +2514,7 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
         const CTransaction& tx = block.vtx[i];
 
         /** UNDO ZEROCOIN DATABASING
-         * note we only undo zerocoin databasing in the following statement, value to and from Phore
+         * note we only undo zerocoin databasing in the following statement, value to and from Soverain
          * addresses should still be handled by the typical bitcoin based undo code
          * */
         if (tx.ContainsZerocoins()) {
@@ -2613,11 +2651,11 @@ static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck()
 {
-    RenameThread("phore-scriptch");
+    RenameThread("soverain-scriptch");
     scriptcheckqueue.Thread();
 }
 
-void RecalculateZPHRMinted()
+void RecalculateZSOVEMinted()
 {
     CBlockIndex *pindex = chainActive[Params().Zerocoin_StartHeight()];
     int nHeightEnd = chainActive.Height();
@@ -2644,14 +2682,14 @@ void RecalculateZPHRMinted()
     }
 }
 
-void RecalculateZPHRSpent()
+void RecalculateZSOVESpent()
 {
     CBlockIndex* pindex = chainActive[Params().Zerocoin_StartHeight()];
     while (true) {
         if (pindex->nHeight % 1000 == 0)
             LogPrintf("%s : block %d...\n", __func__, pindex->nHeight);
 
-        //Rewrite zPHR supply
+        //Rewrite zSOVE supply
         CBlock block;
         assert(ReadBlockFromDisk(block, pindex));
 
@@ -2660,13 +2698,13 @@ void RecalculateZPHRSpent()
         //Reset the supply to previous block
         pindex->mapZerocoinSupply = pindex->pprev->mapZerocoinSupply;
 
-        //Add mints to zPHR supply
+        //Add mints to zSOVE supply
         for (auto denom : libzerocoin::zerocoinDenomList) {
             long nDenomAdded = count(pindex->vMintDenominationsInBlock.begin(), pindex->vMintDenominationsInBlock.end(), denom);
             pindex->mapZerocoinSupply.at(denom) += nDenomAdded;
         }
 
-        //Remove spends from zPHR supply
+        //Remove spends from zSOVE supply
         for (auto denom : listDenomsSpent)
             pindex->mapZerocoinSupply.at(denom)--;
 
@@ -2680,7 +2718,7 @@ void RecalculateZPHRSpent()
     }
 }
 
-bool RecalculatePHRSupply(int nHeightStart)
+bool RecalculateSOVESupply(int nHeightStart)
 {
     if (nHeightStart > chainActive.Height())
         return false;
@@ -2740,7 +2778,7 @@ bool RecalculatePHRSupply(int nHeightStart)
 
 bool ReindexAccumulators(list<uint256>& listMissingCheckpoints, string& strError)
 {
-    // Phore: recalculate Accumulator Checkpoints that failed to database properly
+    // Soverain: recalculate Accumulator Checkpoints that failed to database properly
     if (!listMissingCheckpoints.empty() && chainActive.Height() >= Params().Zerocoin_StartHeight()) {
         //uiInterface.InitMessage(_("Calculating missing accumulators..."));
         LogPrintf("%s : finding missing checkpoints\n", __func__);
@@ -2787,7 +2825,7 @@ bool ReindexAccumulators(list<uint256>& listMissingCheckpoints, string& strError
     return true;
 }
 
-bool UpdateZPHRSupply(const CBlock& block, CBlockIndex* pindex)
+bool UpdateZSOVESupply(const CBlock& block, CBlockIndex* pindex)
 {
     std::list<CZerocoinMint> listMints;
     BlockToZerocoinMintList(block, listMints);
@@ -3000,7 +3038,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                     return state.DoS(100, error("%s: failed to add block %s with invalid zerocoinspend", __func__, tx.GetHash().GetHex()), REJECT_INVALID);
                 }
 
-            // Check that zPHR mints are not already known
+            // Check that zSOVE mints are not already known
             if (tx.IsZerocoinMint()) {
                 for (auto& out : tx.vout) {
                     if (!out.IsZerocoinMint())
@@ -3021,7 +3059,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                 return state.DoS(100, error("ConnectBlock() : inputs missing/spent"),
                     REJECT_INVALID, "bad-txns-inputs-missingorspent");
 
-            // Check that zPHR mints are not already known
+            // Check that zSOVE mints are not already known
             if (tx.IsZerocoinMint()) {
                 for (auto& out : tx.vout) {
                     if (!out.IsZerocoinMint())
@@ -3083,14 +3121,14 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         pos.nTxOffset += ::GetSerializeSize(tx, SER_DISK, CLIENT_VERSION);
     }
 
-    UpdateZPHRSupply(block, pindex);
+    UpdateZSOVESupply(block, pindex);
 
     // track money supply and mint amount info
     CAmount nMoneySupplyPrev = pindex->pprev ? pindex->pprev->nMoneySupply : 0;
     pindex->nMoneySupply = nMoneySupplyPrev + nValueOut - nValueIn;
     pindex->nMint = pindex->nMoneySupply - nMoneySupplyPrev + nFees;
 
-//    LogPrintf("XX69----------> ConnectBlock(): nValueOut: %s, nValueIn: %s, nFees: %s, nMint: %s zPHRSpent: %s\n",
+//    LogPrintf("XX69----------> ConnectBlock(): nValueOut: %s, nValueIn: %s, nFees: %s, nMint: %s zSOVESpent: %s\n",
 //              FormatMoney(nValueOut), FormatMoney(nValueIn),
 //              FormatMoney(nFees), FormatMoney(pindex->nMint), FormatMoney(nAmountZerocoinSpent));
 
@@ -3099,7 +3137,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs - 1), nTimeConnect * 0.000001);
 
     //PoW phase redistributed fees to miner. PoS stage destroys fees.
-    CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight);
+    CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight+1); //RewMod
     if (block.IsProofOfWork())
         nExpectedMint += nFees;
 
@@ -3143,7 +3181,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         setDirtyBlockIndex.insert(pindex);
     }
 
-    //Record zPHR serials
+    //Record zSOVE serials
     set<uint256> setAddedTx;
     for (pair<CoinSpend, uint256> pSpend : vSpends) {
         //record spend to database
@@ -3306,7 +3344,7 @@ void static UpdateTip(CBlockIndex* pindexNew)
 {
     chainActive.SetTip(pindexNew);
 
-    // If turned on AutoZeromint will automatically convert PHR to zPHR
+    // If turned on AutoZeromint will automatically convert SOVE to zSOVE
     if (pwalletMain->isZeromintEnabled ())
         pwalletMain->AutoZeromint ();
 
@@ -4159,7 +4197,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
                 nHeight = (*mi).second->nHeight + 1;
         }
 
-        // Phore
+        // Soverain
         // It is entierly possible that we don't have enough data and this could fail
         // (i.e. the block could indeed be valid). Store the block for later consideration
         // but issue an initial reject message.
@@ -4367,13 +4405,13 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIn
             if (!CheckTransaction(tx, true, chainActive.Height() + 1 >= Params().Zerocoin_StartHeight(), state, GetSporkValue(SPORK_17_SEGWIT_ACTIVATION) < block.nTime))
                 return error("CheckBlock() : CheckTransaction failed");
 
-            // double check that there are no double spent zPHR spends in this block
+            // double check that there are no double spent zSOVE spends in this block
             if (tx.IsZerocoinSpend()) {
                 for (const CTxIn txIn : tx.vin) {
                     if (txIn.scriptSig.IsZerocoinSpend()) {
                         libzerocoin::CoinSpend spend = TxInToZerocoinSpend(txIn);
                         if (count(vBlockSerials.begin(), vBlockSerials.end(), spend.getCoinSerialNumber()))
-                            return state.DoS(100, error("%s : Double spending of zPHR serial %s in block\n Block: %s",
+                            return state.DoS(100, error("%s : Double spending of zSOVE serial %s in block\n Block: %s",
                                                         __func__, spend.getCoinSerialNumber().GetHex(), block.ToString()));
                         vBlockSerials.emplace_back(spend.getCoinSerialNumber());
                     }
@@ -4723,7 +4761,7 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
         }
     }
     if (nMints || nSpends)
-        LogPrintf("%s : block contains %d zPHR mints and %d zPHR spends\n", __func__, nMints, nSpends);
+        LogPrintf("%s : block contains %d zSOVE mints and %d zSOVE spends\n", __func__, nMints, nSpends);
 
     // ppcoin: check proof-of-stake
     // Limited duplicity on stake: prevents block flood attack
@@ -5868,9 +5906,9 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             pfrom->cleanSubVer = SanitizeString(pfrom->strSubVer);
         }
         // broken releases with wrong blockchain data
-        if (pfrom->cleanSubVer == "/Phore Core:1.1.0/" ||
-            pfrom->cleanSubVer == "/Phore Core:1.3.0/" ||
-            pfrom->cleanSubVer == "/Phore Core:1.3.1/") {
+        if (pfrom->cleanSubVer == "/Soverain Core:1.1.0/" ||
+            pfrom->cleanSubVer == "/Soverain Core:1.3.0/" ||
+            pfrom->cleanSubVer == "/Soverain Core:1.3.1/") {
             LOCK(cs_main);
             Misbehaving(pfrom->GetId(), 100); // instantly ban them because they have bad block data
             return false;
@@ -5913,7 +5951,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         pfrom->PushMessage(NetMsgType::VERACK);
         pfrom->ssSend.SetVersion(min(pfrom->nVersion, PROTOCOL_VERSION));
 
-        // Phore: We use certain sporks during IBD, so check to see if they are
+        // Soverain: We use certain sporks during IBD, so check to see if they are
         // available. If not, ask the first peer connected for them.
         bool fMissingSporks = !pSporkDB->SporkExists(SPORK_16_ZEROCOIN_MAINTENANCE_MODE);
 

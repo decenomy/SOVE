@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Soverain
+Comment=Soverain P2P Cryptocurrency
+Comment[fr]=Soverain, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Soverain, eşten eşe kriptografik sanal para birimi
+Exec=soverain-qt %u
+Terminal=false
+Type=Application
+Icon=soverain128
+MimeType=x-scheme-handler/soverain;
+Categories=Office;Finance;

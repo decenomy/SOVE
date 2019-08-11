@@ -5,7 +5,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/phore-config.h"
+#include "config/soverain-config.h"
 #endif
 
 #include "optionsmodel.h"
@@ -62,7 +62,7 @@ void OptionsModel::Init()
 
     // Display
     if (!settings.contains("nDisplayUnit"))
-        settings.setValue("nDisplayUnit", BitcoinUnits::PHR);
+        settings.setValue("nDisplayUnit", BitcoinUnits::SOVE);
     nDisplayUnit = settings.value("nDisplayUnit").toInt();
 
     if (!settings.contains("strThirdPartyTxUrls"))
@@ -89,10 +89,10 @@ void OptionsModel::Init()
         settings.setValue("nPreferredDenom", 0);
     nPreferredDenom = settings.value("nPreferredDenom", "0").toLongLong();
 
-    if (!settings.contains("nAnonymizePhoreAmount"))
-        settings.setValue("nAnonymizePhoreAmount", 1000);
+    if (!settings.contains("nAnonymizeSoverainAmount"))
+        settings.setValue("nAnonymizeSoverainAmount", 1000);
 
-    nAnonymizePhoreAmount = settings.value("nAnonymizePhoreAmount").toLongLong();
+    nAnonymizeSoverainAmount = settings.value("nAnonymizeSoverainAmount").toLongLong();
 
     if (!settings.contains("fShowMasternodesTab"))
         settings.setValue("fShowMasternodesTab", masternodeConfig.getCount());
@@ -166,8 +166,8 @@ void OptionsModel::Init()
         SoftSetArg("-zeromintpercentage", settings.value("nZeromintPercentage").toString().toStdString());
     if (settings.contains("nPreferredDenom"))
         SoftSetArg("-preferredDenom", settings.value("nPreferredDenom").toString().toStdString());
-    if (settings.contains("nAnonymizePhoreAmount"))
-        SoftSetArg("-anonymizephoreamount", settings.value("nAnonymizePhoreAmount").toString().toStdString());
+    if (settings.contains("nAnonymizeSoverainAmount"))
+        SoftSetArg("-anonymizesoverainamount", settings.value("nAnonymizeSoverainAmount").toString().toStdString());
 
     language = settings.value("language").toString();
 }
@@ -178,7 +178,7 @@ void OptionsModel::Reset()
 
     // Remove all entries from our QSettings object
     settings.clear();
-    resetSettings = true; // Needed in phore.cpp during shotdown to also remove the window positions
+    resetSettings = true; // Needed in soverain.cpp during shotdown to also remove the window positions
 
     // default setting for OptionsModel::StartAtStartup - disabled
     if (GUIUtil::GetStartOnSystemStartup())
@@ -258,8 +258,8 @@ QVariant OptionsModel::data(const QModelIndex& index, int role) const
             return QVariant(nZeromintPercentage);
         case ZeromintPrefDenom:
             return QVariant(nPreferredDenom);
-        case AnonymizePhoreAmount:
-            return QVariant(nAnonymizePhoreAmount);
+        case AnonymizeSoverainAmount:
+            return QVariant(nAnonymizeSoverainAmount);
         case Listen:
             return settings.value("fListen");
         default:
@@ -388,10 +388,10 @@ bool OptionsModel::setData(const QModelIndex& index, const QVariant& value, int 
             emit hideZeroBalancesChanged(fHideZeroBalances);
             break;
 
-        case AnonymizePhoreAmount:
-            nAnonymizePhoreAmount = value.toInt();
-            settings.setValue("nAnonymizePhoreAmount", nAnonymizePhoreAmount);
-            emit anonymizePhoreAmountChanged(nAnonymizePhoreAmount);
+        case AnonymizeSoverainAmount:
+            nAnonymizeSoverainAmount = value.toInt();
+            settings.setValue("nAnonymizeSoverainAmount", nAnonymizeSoverainAmount);
+            emit anonymizeSoverainAmountChanged(nAnonymizeSoverainAmount);
             break;
         case CoinControlFeatures:
             fCoinControlFeatures = value.toBool();

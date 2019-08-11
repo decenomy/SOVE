@@ -1,0 +1,26 @@
+[Unit]
+Description=Soverain's distributed currency daemon
+After=network.target
+
+[Service]
+User=soverain
+Group=soverain
+
+Type=forking
+PIDFile=/var/lib/soveraind/soveraind.pid
+
+ExecStart=/usr/bin/soveraind -daemon -pid=/var/lib/soveraind/soveraind.pid \
+          -conf=/etc/soverain/soverain.conf -datadir=/var/lib/soveraind
+
+ExecStop=-/usr/bin/soverain-cli -conf=/etc/soverain/soverain.conf \
+         -datadir=/var/lib/soveraind stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

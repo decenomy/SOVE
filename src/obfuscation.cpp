@@ -37,7 +37,7 @@ map<uint256, CObfuscationBroadcastTx> mapObfuscationBroadcastTxes;
 // Keep track of the active Masternode
 CActiveMasternode activeMasternode;
 
-/* *** BEGIN OBFUSCATION MAGIC - PHR **********
+/* *** BEGIN OBFUSCATION MAGIC - SOVE **********
     Copyright (c) 2014-2015, Dash Developers
         eduffield - evan@dashpay.io
         udjinm6   - udjinm6@dashpay.io
@@ -777,9 +777,9 @@ void CObfuscationPool::ChargeRandomFees()
 
                 Being that Obfuscation has "no fees" we need to have some kind of cost associated
                 with using it to stop abuse. Otherwise it could serve as an attack vector and
-                allow endless transaction that would bloat Phore and make it unusable. To
+                allow endless transaction that would bloat Soverain and make it unusable. To
                 stop these kinds of attacks 1 in 10 successful transactions are charged. This
-                adds up to a cost of 0.001 PHR per transaction on average.
+                adds up to a cost of 0.001 SOVE per transaction on average.
             */
             if (r <= 10) {
                 LogPrintf("CObfuscationPool::ChargeRandomFees -- charging random fees. %u\n", i);
@@ -1437,7 +1437,7 @@ bool CObfuscationPool::DoAutomaticDenominating(bool fDryRun)
         // should have some additional amount for them
         nLowestDenom += OBFUSCATION_COLLATERAL * 4;
 
-    CAmount nBalanceNeedsAnonymized = nAnonymizePhoreAmount * COIN - pwalletMain->GetAnonymizedBalance();
+    CAmount nBalanceNeedsAnonymized = nAnonymizeSoverainAmount * COIN - pwalletMain->GetAnonymizedBalance();
 
     // if balanceNeedsAnonymized is more than pool max, take the pool max
     if (nBalanceNeedsAnonymized > OBFUSCATION_POOL_MAX) nBalanceNeedsAnonymized = OBFUSCATION_POOL_MAX;
@@ -1920,10 +1920,10 @@ void CObfuscationPool::GetDenominationsToString(int nDenom, std::string& strDeno
 {
     // Function returns as follows:
     //
-    // bit 0 - 100PHR+1 ( bit on if present )
-    // bit 1 - 10PHR+1
-    // bit 2 - 1PHR+1
-    // bit 3 - .1PHR+1
+    // bit 0 - 100SOVE+1 ( bit on if present )
+    // bit 1 - 10SOVE+1
+    // bit 2 - 1SOVE+1
+    // bit 3 - .1SOVE+1
     // bit 3 - non-denom
 
 
@@ -1993,10 +1993,10 @@ int CObfuscationPool::GetDenominations(const std::vector<CTxOut>& vout, bool fSi
 
     // Function returns as follows:
     //
-    // bit 0 - 100PHR+1 ( bit on if present )
-    // bit 1 - 10PHR+1
-    // bit 2 - 1PHR+1
-    // bit 3 - .1PHR+1
+    // bit 0 - 100SOVE+1 ( bit on if present )
+    // bit 1 - 10SOVE+1
+    // bit 2 - 1SOVE+1
+    // bit 3 - .1SOVE+1
 
     return denom;
 }
@@ -2114,7 +2114,7 @@ bool CObfuScationSigner::IsVinAssociatedWithPubkey(CTxIn& vin, CPubKey& pubkey)
     uint256 hash;
     if (GetTransaction(vin.prevout.hash, txVin, hash, true)) {
         BOOST_FOREACH (CTxOut out, txVin.vout) {
-            if (out.nValue == 10000 * COIN) {
+            if (out.nValue == GetMNCollateral(chainActive.Height()) * COIN) {
                 if (out.scriptPubKey == payee2) return true;
             }
         }
@@ -2289,7 +2289,7 @@ void ThreadCheckObfuScationPool()
     if (fLiteMode) return; //disable all Obfuscation/Masternode related functionality
 
     // Make this thread recognisable as the wallet flushing thread
-    RenameThread("phore-obfuscation");
+    RenameThread("soverain-obfuscation");
 
     unsigned int c = 0;
 

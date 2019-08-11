@@ -75,13 +75,13 @@ cd ..
 
 **Note**: When sudo asks for a password, enter the password for the user `gitianuser` not for `root`.
 
-Clone the git repositories for phore and Gitian.
+Clone the git repositories for soverain and Gitian.
 
 ```bash
 git clone https://github.com/devrandom/gitian-builder.git
-git clone https://github.com/phore/phore
-git clone https://github.com/phoreproject/gitian.sigs.git
-git clone https://github.com/phoreproject/phore-detached-sigs.git
+git clone https://github.com/soverain/soverain
+git clone https://github.com/soverainproject/gitian.sigs.git
+git clone https://github.com/soverainproject/soverain-detached-sigs.git
 ```
 
 Setting up the Gitian image

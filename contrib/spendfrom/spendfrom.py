@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 #
-# Use the raw transactions API to spend PHRs received on particular addresses,
+# Use the raw transactions API to spend SOVEs received on particular addresses,
 # and send any change back to that same address.
 #
 # Example usage:
 #  spendfrom.py  # Lists available funds
 #  spendfrom.py --from=ADDRESS --to=ADDRESS --amount=11.00
 #
-# Assumes it will talk to a phored or phore-Qt running
+# Assumes it will talk to a soveraind or soverain-Qt running
 # on localhost.
 #
 # Depends on jsonrpc
@@ -33,15 +33,15 @@ def check_json_precision():
         raise RuntimeError("JSON encode/decode loses precision")
 
 def determine_db_dir():
-    """Return the default location of the phore data directory"""
+    """Return the default location of the soverain data directory"""
     if platform.system() == "Darwin":
-        return os.path.expanduser("~/Library/Application Support/Phore/")
+        return os.path.expanduser("~/Library/Application Support/Soverain/")
     elif platform.system() == "Windows":
-        return os.path.join(os.environ['APPDATA'], "Phore")
-    return os.path.expanduser("~/.phore")
+        return os.path.join(os.environ['APPDATA'], "Soverain")
+    return os.path.expanduser("~/.soverain")
 
 def read_bitcoin_config(dbdir):
-    """Read the phore.conf file from dbdir, returns dictionary of settings"""
+    """Read the soverain.conf file from dbdir, returns dictionary of settings"""
     from ConfigParser import SafeConfigParser
 
     class FakeSecHead(object):
@@ -59,20 +59,20 @@ def read_bitcoin_config(dbdir):
                 return s
 
     config_parser = SafeConfigParser()
-    config_parser.readfp(FakeSecHead(open(os.path.join(dbdir, "phore.conf"))))
+    config_parser.readfp(FakeSecHead(open(os.path.join(dbdir, "soverain.conf"))))
     return dict(config_parser.items("all"))
 
 def connect_JSON(config):
-    """Connect to a phore JSON-RPC server"""
+    """Connect to a soverain JSON-RPC server"""
     testnet = config.get('testnet', '0')
     testnet = (int(testnet) > 0)  # 0/1 in config file, convert to True/False
     if not 'rpcport' in config:
-        config['rpcport'] = 11774 if testnet else 11772
+        config['rpcport'] = 18979 if testnet else 18977
     connect = "http://%s:%s@127.0.0.1:%s"%(config['rpcuser'], config['rpcpassword'], config['rpcport'])
     try:
         result = ServiceProxy(connect)
         # ServiceProxy is lazy-connect, so send an RPC command mostly to catch connection errors,
-        # but also make sure the phored we're talking to is/isn't testnet:
+        # but also make sure the soveraind we're talking to is/isn't testnet:
         if result.getmininginfo()['testnet'] != testnet:
             sys.stderr.write("RPC server at "+connect+" testnet setting mismatch\n")
             sys.exit(1)
@@ -81,36 +81,36 @@ def connect_JSON(config):
         sys.stderr.write("Error connecting to RPC server at "+connect+"\n")
         sys.exit(1)
 
-def unlock_wallet(phored):
-    info = phored.getinfo()
+def unlock_wallet(soveraind):
+    info = soveraind.getinfo()
     if 'unlocked_until' not in info:
         return True # wallet is not encrypted
     t = int(info['unlocked_until'])
     if t <= time.time():
         try:
             passphrase = getpass.getpass("Wallet is locked; enter passphrase: ")
-            phored.walletpassphrase(passphrase, 5)
+            soveraind.walletpassphrase(passphrase, 5)
         except:
             sys.stderr.write("Wrong passphrase\n")
 
-    info = phored.getinfo()
+    info = soveraind.getinfo()
     return int(info['unlocked_until']) > time.time()
 
-def list_available(phored):
+def list_available(soveraind):
     address_summary = dict()
 
     address_to_account = dict()
-    for info in phored.listreceivedbyaddress(0):
+    for info in soveraind.listreceivedbyaddress(0):
         address_to_account[info["address"]] = info["account"]
 
-    unspent = phored.listunspent(0)
+    unspent = soveraind.listunspent(0)
     for output in unspent:
         # listunspent doesn't give addresses, so:
-        rawtx = phored.getrawtransaction(output['txid'], 1)
+        rawtx = soveraind.getrawtransaction(output['txid'], 1)
         vout = rawtx["vout"][output['vout']]
         pk = vout["scriptPubKey"]
 
-        # This code only deals with ordinary pay-to-phore-address
+        # This code only deals with ordinary pay-to-soverain-address
         # or pay-to-script-hash outputs right now; anything exotic is ignored.
         if pk["type"] != "pubkeyhash" and pk["type"] != "scripthash":
             continue
@@ -139,8 +139,8 @@ def select_coins(needed, inputs):
         n += 1
     return (outputs, have-needed)
 
-def create_tx(phored, fromaddresses, toaddress, amount, fee):
-    all_coins = list_available(phored)
+def create_tx(soveraind, fromaddresses, toaddress, amount, fee):
+    all_coins = list_available(soveraind)
 
     total_available = Decimal("0.0")
     needed = amount+fee
@@ -159,7 +159,7 @@ def create_tx(phored, fromaddresses, toaddress, amount, fee):
     # Note:
     # Python's json/jsonrpc modules have inconsistent support for Decimal numbers.
     # Instead of wrestling with getting json.dumps() (used by jsonrpc) to encode
-    # Decimals, I'm casting amounts to float before sending them to phored.
+    # Decimals, I'm casting amounts to float before sending them to soveraind.
     #
     outputs = { toaddress : float(amount) }
     (inputs, change_amount) = select_coins(needed, potential_inputs)
@@ -170,8 +170,8 @@ def create_tx(phored, fromaddresses, toaddress, amount, fee):
         else:
             outputs[change_address] = float(change_amount)
 
-    rawtx = phored.createrawtransaction(inputs, outputs)
-    signed_rawtx = phored.signrawtransaction(rawtx)
+    rawtx = soveraind.createrawtransaction(inputs, outputs)
+    signed_rawtx = soveraind.signrawtransaction(rawtx)
     if not signed_rawtx["complete"]:
         sys.stderr.write("signrawtransaction failed\n")
         sys.exit(1)
@@ -179,10 +179,10 @@ def create_tx(phored, fromaddresses, toaddress, amount, fee):
 
     return txdata
 
-def compute_amount_in(phored, txinfo):
+def compute_amount_in(soveraind, txinfo):
     result = Decimal("0.0")
     for vin in txinfo['vin']:
-        in_info = phored.getrawtransaction(vin['txid'], 1)
+        in_info = soveraind.getrawtransaction(vin['txid'], 1)
         vout = in_info['vout'][vin['vout']]
         result = result + vout['value']
     return result
@@ -193,12 +193,12 @@ def compute_amount_out(txinfo):
         result = result + vout['value']
     return result
 
-def sanity_test_fee(phored, txdata_hex, max_fee):
+def sanity_test_fee(soveraind, txdata_hex, max_fee):
     class FeeError(RuntimeError):
         pass
     try:
-        txinfo = phored.decoderawtransaction(txdata_hex)
-        total_in = compute_amount_in(phored, txinfo)
+        txinfo = soveraind.decoderawtransaction(txdata_hex)
+        total_in = compute_amount_in(soveraind, txinfo)
         total_out = compute_amount_out(txinfo)
         if total_in-total_out > max_fee:
             raise FeeError("Rejecting transaction, unreasonable fee of "+str(total_in-total_out))
@@ -221,15 +221,15 @@ def main():
 
     parser = optparse.OptionParser(usage="%prog [options]")
     parser.add_option("--from", dest="fromaddresses", default=None,
-                      help="addresses to get PHRs from")
+                      help="addresses to get SOVEs from")
     parser.add_option("--to", dest="to", default=None,
-                      help="address to get send PHRs to")
+                      help="address to get send SOVEs to")
     parser.add_option("--amount", dest="amount", default=None,
                       help="amount to send")
     parser.add_option("--fee", dest="fee", default="0.0",
                       help="fee to include")
     parser.add_option("--datadir", dest="datadir", default=determine_db_dir(),
-                      help="location of phore.conf file with RPC username/password (default: %default)")
+                      help="location of soverain.conf file with RPC username/password (default: %default)")
     parser.add_option("--testnet", dest="testnet", default=False, action="store_true",
                       help="Use the test network")
     parser.add_option("--dry_run", dest="dry_run", default=False, action="store_true",
@@ -240,10 +240,10 @@ def main():
     check_json_precision()
     config = read_bitcoin_config(options.datadir)
     if options.testnet: config['testnet'] = True
-    phored = connect_JSON(config)
+    soveraind = connect_JSON(config)
 
     if options.amount is None:
-        address_summary = list_available(phored)
+        address_summary = list_available(soveraind)
         for address,info in address_summary.iteritems():
             n_transactions = len(info['outputs'])
             if n_transactions > 1:
@@ -253,14 +253,14 @@ def main():
     else:
         fee = Decimal(options.fee)
         amount = Decimal(options.amount)
-        while unlock_wallet(phored) == False:
+        while unlock_wallet(soveraind) == False:
             pass # Keep asking for passphrase until they get it right
-        txdata = create_tx(phored, options.fromaddresses.split(","), options.to, amount, fee)
-        sanity_test_fee(phored, txdata, amount*Decimal("0.01"))
+        txdata = create_tx(soveraind, options.fromaddresses.split(","), options.to, amount, fee)
+        sanity_test_fee(soveraind, txdata, amount*Decimal("0.01"))
         if options.dry_run:
             print(txdata)
         else:
-            txid = phored.sendrawtransaction(txdata)
+            txid = soveraind.sendrawtransaction(txdata)
             print(txid)
 
 if __name__ == '__main__':

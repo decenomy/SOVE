@@ -10,10 +10,10 @@
 
 /**
  * Name of client reported in the 'version' message. Report the same name
- * for both phored and phore-qt, to make it harder for attackers to
+ * for both soveraind and soverain-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
-const std::string CLIENT_NAME("Phore Core");
+const std::string CLIENT_NAME("Soverain Core");
 
 /**
  * Client version number
@@ -44,8 +44,8 @@ const std::string CLIENT_NAME("Phore Core");
 
 //! git will put "#define GIT_ARCHIVE 1" on the next line inside archives.
 #ifdef GIT_ARCHIVE
-#define GIT_COMMIT_ID "cbcb549"
-#define GIT_COMMIT_DATE "Tue, 9 Feb 2016 16:54:57 -0500"
+#define GIT_COMMIT_ID "a1b2c3d"
+#define GIT_COMMIT_DATE "Mon, 15 Jul 2019 11:12:11 -0500"
 #endif
 
 #define BUILD_DESC_WITH_SUFFIX(maj, min, rev, build, suffix) \

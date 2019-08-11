@@ -1,4 +1,4 @@
-// Copyright (c) 2018 The Phore developers
+// Copyright (c) 2018 The Soverain developers
 // Copyright (c) 2018 The Curium developers
 // Copyright (c) 2017-2018 The Bulwark Developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -202,7 +202,7 @@ QVariant ProposalTableModel::data(const QModelIndex &index, int role) const
                 case VotesNeeded:
                     return QString("%1").arg(rec->votesNeeded);
                 case Amount:
-                    return BitcoinUnits::format(BitcoinUnits::PHR, rec->amount);
+                    return BitcoinUnits::format(BitcoinUnits::SOVE, rec->amount);
             }
             break;
         case Qt::EditRole:

@@ -1,10 +1,10 @@
 Sample configuration files for:
 
-SystemD: phored.service
-Upstart: phored.conf
-OpenRC:  phored.openrc
-         phored.openrcconf
-CentOS:  phored.init
+SystemD: soveraind.service
+Upstart: soveraind.conf
+OpenRC:  soveraind.openrc
+         soveraind.openrcconf
+CentOS:  soveraind.init
 
 have been made available to assist packagers in creating node packages here.
 

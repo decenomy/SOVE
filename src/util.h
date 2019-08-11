@@ -13,7 +13,7 @@
 #define BITCOIN_UTIL_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/phore-config.h"
+#include "config/soverain-config.h"
 #endif
 
 #include "compat.h"
@@ -29,7 +29,7 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/thread/exceptions.hpp>
 
-//Phore only features
+//Soverain only features
 
 extern bool fMasterNode;
 extern bool fLiteMode;
@@ -38,7 +38,7 @@ extern int nSwiftTXDepth;
 extern int nZeromintPercentage;
 extern const int64_t AUTOMINT_DELAY;
 extern int nPreferredDenom;
-extern int nAnonymizePhoreAmount;
+extern int nAnonymizeSoverainAmount;
 extern int nLiquidityProvider;
 extern bool fEnableZeromint;
 extern int64_t enforceMasternodePaymentsTime;
@@ -212,7 +212,7 @@ void RenameThread(const char* name);
 template <typename Callable>
 void TraceThread(const char* name, Callable func)
 {
-    std::string s = strprintf("phore-%s", name);
+    std::string s = strprintf("soverain-%s", name);
     RenameThread(s.c_str());
     try {
         LogPrintf("%s thread start\n", name);
@@ -237,5 +237,19 @@ void TraceThread(const char* name, Callable func)
  */
 bool ParseFixedPoint(const std::string &val, int decimals, int64_t *amount_out);
 
+/** masternode collateral definition **/
+
+inline int64_t GetMNCollateral(int nHeight) {
+
+    int64_t retval;
+
+    switch(nHeight){
+	case 0      ... 403200: retval = 3000; break;
+	case 403201 ... 806400: retval = 4500; break;
+	default: retval = 6000; break;
+    }
+
+    return retval;
+}
 
 #endif // BITCOIN_UTIL_H

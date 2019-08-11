@@ -4,12 +4,12 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2017-2018 The ALQO & Bitfineon developers
-// Copyright (c) 2017-2019 The Phore Developers
+// Copyright (c) 2017-2019 Soverain cryptocurrency developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/phore-config.h"
+#include "config/soverain-config.h"
 #endif
 
 #include "net.h"
@@ -703,7 +703,7 @@ void CNode::copyStats(CNodeStats& stats)
         nPingUsecWait = GetTimeMicros() - nPingUsecStart;
     }
 
-    // Raw ping time is in microseconds, but show it to user as whole seconds (Phore users should be well used to small numbers with many decimal places by now :)
+    // Raw ping time is in microseconds, but show it to user as whole seconds (Soverain users should be well used to small numbers with many decimal places by now :)
     stats.dPingTime = (((double)nPingUsecTime) / 1e6);
     stats.dPingWait = (((double)nPingUsecWait) / 1e6);
 
@@ -1165,7 +1165,7 @@ void ThreadMapPort()
             }
         }
 
-        string strDesc = "Phore " + FormatFullVersion();
+        string strDesc = "Soverain " + FormatFullVersion();
 
         try {
             while (true) {
@@ -1386,22 +1386,23 @@ void ThreadOpenConnections()
                 continue;
 
             // only connect to full nodes
-            if (!(addr.nServices & NODE_NETWORK))
-                continue;
+//            if (!(addr.nServices & NODE_NETWORK))
+//                continue;
 
             // only consider very recently tried nodes after 30 failed attempts
             if (nANow - addr.nLastTry < 600 && nTries < 30)
                 continue;
 
             // only consider nodes missing relevant services after 40 failed attemps
-            if ((addr.nServices & nRelevantServices) != nRelevantServices && nTries < 40)
-                continue;
+//            if ((addr.nServices & nRelevantServices) != nRelevantServices && nTries < 40)
+//                continue;
 
             // do not allow non-default ports, unless after 50 invalid addresses selected already
             if (addr.GetPort() != Params().GetDefaultPort() && nTries < 50)
                 continue;
 
             addrConnect = addr;
+            MilliSleep(3500);
             break;
         }
 
@@ -1653,7 +1654,7 @@ bool BindListenPort(const CService& addrBind, string& strError, bool fWhiteliste
     if (::bind(hListenSocket, (struct sockaddr*)&sockaddr, len) == SOCKET_ERROR) {
         int nErr = WSAGetLastError();
         if (nErr == WSAEADDRINUSE)
-            strError = strprintf(_("Unable to bind to %s on this computer. Phore Core is probably already running."), addrBind.ToString());
+            strError = strprintf(_("Unable to bind to %s on this computer. Soverain Core is probably already running."), addrBind.ToString());
         else
             strError = strprintf(_("Unable to bind to %s on this computer (bind returned error %s)"), addrBind.ToString(), NetworkErrorString(nErr));
         LogPrintf("%s\n", strError);

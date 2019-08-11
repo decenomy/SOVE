@@ -23,8 +23,8 @@
 #include "validationinterface.h"
 #include "wallet_ismine.h"
 #include "walletdb.h"
-#include "zphrtracker.h"
-#include "zphrwallet.h"
+#include "zsovetracker.h"
+#include "zsovewallet.h"
 
 #include <algorithm>
 #include <map>
@@ -84,30 +84,30 @@ enum AvailableCoinsType {
     ALL_COINS = 1,
     ONLY_DENOMINATED = 2,
     ONLY_NOT10000IFMN = 3,
-    ONLY_NONDENOMINATED_NOT10000IFMN = 4, // ONLY_NONDENOMINATED and not 10000 PHR at the same time
+    ONLY_NONDENOMINATED_NOT10000IFMN = 4, // ONLY_NONDENOMINATED and not 10000 SOVE at the same time
     ONLY_10000 = 5,                        // find masternode outputs including locked ones (use with caution)
     STAKABLE_COINS = 6                          // UTXO's that are valid for staking
 };
 
-// Possible states for zPHR send
+// Possible states for zSOVE send
 enum ZerocoinSpendStatus {
-    ZPHR_SPEND_OKAY = 0,                            // No error
-    ZPHR_SPEND_ERROR = 1,                           // Unspecified class of errors, more details are (hopefully) in the returning text
-    ZPHR_WALLET_LOCKED = 2,                         // Wallet was locked
-    ZPHR_COMMIT_FAILED = 3,                         // Commit failed, reset status
-    ZPHR_ERASE_SPENDS_FAILED = 4,                   // Erasing spends during reset failed
-    ZPHR_ERASE_NEW_MINTS_FAILED = 5,                // Erasing new mints during reset failed
-    ZPHR_TRX_FUNDS_PROBLEMS = 6,                    // Everything related to available funds
-    ZPHR_TRX_CREATE = 7,                            // Everything related to create the transaction
-    ZPHR_TRX_CHANGE = 8,                            // Everything related to transaction change
-    ZPHR_TXMINT_GENERAL = 9,                        // General errors in MintToTxIn
-    ZPHR_INVALID_COIN = 10,                         // Selected mint coin is not valid
-    ZPHR_FAILED_ACCUMULATOR_INITIALIZATION = 11,    // Failed to initialize witness
-    ZPHR_INVALID_WITNESS = 12,                      // Spend coin transaction did not verify
-    ZPHR_BAD_SERIALIZATION = 13,                    // Transaction verification failed
-    ZPHR_SPENT_USED_ZPHR = 14,                      // Coin has already been spend
-    ZPHR_TX_TOO_LARGE = 15,                         // The transaction is larger than the max tx size
-    ZPHR_SPEND_V1_SEC_LEVEL
+    ZSOVE_SPEND_OKAY = 0,                            // No error
+    ZSOVE_SPEND_ERROR = 1,                           // Unspecified class of errors, more details are (hopefully) in the returning text
+    ZSOVE_WALLET_LOCKED = 2,                         // Wallet was locked
+    ZSOVE_COMMIT_FAILED = 3,                         // Commit failed, reset status
+    ZSOVE_ERASE_SPENDS_FAILED = 4,                   // Erasing spends during reset failed
+    ZSOVE_ERASE_NEW_MINTS_FAILED = 5,                // Erasing new mints during reset failed
+    ZSOVE_TRX_FUNDS_PROBLEMS = 6,                    // Everything related to available funds
+    ZSOVE_TRX_CREATE = 7,                            // Everything related to create the transaction
+    ZSOVE_TRX_CHANGE = 8,                            // Everything related to transaction change
+    ZSOVE_TXMINT_GENERAL = 9,                        // General errors in MintToTxIn
+    ZSOVE_INVALID_COIN = 10,                         // Selected mint coin is not valid
+    ZSOVE_FAILED_ACCUMULATOR_INITIALIZATION = 11,    // Failed to initialize witness
+    ZSOVE_INVALID_WITNESS = 12,                      // Spend coin transaction did not verify
+    ZSOVE_BAD_SERIALIZATION = 13,                    // Transaction verification failed
+    ZSOVE_SPENT_USED_ZSOVE = 14,                      // Coin has already been spend
+    ZSOVE_TX_TOO_LARGE = 15,                         // The transaction is larger than the max tx size
+    ZSOVE_SPEND_V1_SEC_LEVEL
 };
 
 enum OutputType : int
@@ -228,13 +228,13 @@ public:
     void ReconsiderZerocoins(std::list<CZerocoinMint>& listMintsRestored, std::list<CDeterministicMint>& listDMintsRestored);
     void ZPhrBackupWallet();
     bool GetZerocoinKey(const CBigNum& bnSerial, CKey& key);
-    bool CreateZPHROutput(libzerocoin::CoinDenomination denomination, CTxOut& outMint, CDeterministicMint& dMint);
+    bool CreateZSOVEOutput(libzerocoin::CoinDenomination denomination, CTxOut& outMint, CDeterministicMint& dMint);
     bool GetMint(const uint256& hashSerial, CZerocoinMint& mint);
     bool GetMintFromStakeHash(const uint256& hashStake, CZerocoinMint& mint);
     bool DatabaseMint(CDeterministicMint& dMint);
     bool SetMintUnspent(const CBigNum& bnSerial);
     bool UpdateMint(const CBigNum& bnValue, const int& nHeight, const uint256& txid, const libzerocoin::CoinDenomination& denom);
-    string GetUniqueWalletBackupName(bool fzphrAuto) const;
+    string GetUniqueWalletBackupName(bool fzsoveAuto) const;
 
     /** Zerocin entry changed.
     * @note called with lock cs_wallet held.
@@ -249,13 +249,13 @@ public:
      */
     mutable CCriticalSection cs_wallet;
 
-    CzPHRWallet* zwalletMain;
+    CzSOVEWallet* zwalletMain;
 
     bool fFileBacked;
     bool fWalletUnlockAnonymizeOnly;
     std::string strWalletFile;
     bool fBackupMints;
-    std::unique_ptr<CzPHRTracker> zphrTracker;
+    std::unique_ptr<CzSOVETracker> zsoveTracker;
 
     std::set<int64_t> setKeyPool;
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
@@ -340,13 +340,13 @@ public:
         return nZeromintPercentage;
     }
 
-    void setZWallet(CzPHRWallet* zwallet)
+    void setZWallet(CzSOVEWallet* zwallet)
     {
         zwalletMain = zwallet;
-        zphrTracker = std::unique_ptr<CzPHRTracker>(new CzPHRTracker(strWalletFile));
+        zsoveTracker = std::unique_ptr<CzSOVETracker>(new CzSOVETracker(strWalletFile));
     }
 
-    CzPHRWallet* getZWallet() { return zwalletMain; }
+    CzSOVEWallet* getZWallet() { return zwalletMain; }
 
 
     bool isZeromintEnabled()

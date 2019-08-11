@@ -20,18 +20,18 @@ BitcoinUnits::BitcoinUnits(QObject* parent) : QAbstractListModel(parent),
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(PHR);
-    unitlist.append(mPHR);
-    unitlist.append(uPHR);
+    unitlist.append(SOVE);
+    unitlist.append(mSOVE);
+    unitlist.append(uSOVE);
     return unitlist;
 }
 
 bool BitcoinUnits::valid(int unit)
 {
     switch (unit) {
-    case PHR:
-    case mPHR:
-    case uPHR:
+    case SOVE:
+    case mSOVE:
+    case uSOVE:
         return true;
     default:
         return false;
@@ -41,12 +41,12 @@ bool BitcoinUnits::valid(int unit)
 QString BitcoinUnits::id(int unit)
 {
     switch (unit) {
-    case PHR:
-        return QString("phore");
-    case mPHR:
-        return QString("mphore");
-    case uPHR:
-        return QString::fromUtf8("uphore");
+    case SOVE:
+        return QString("soverain");
+    case mSOVE:
+        return QString("msoverain");
+    case uSOVE:
+        return QString::fromUtf8("usoverain");
     default:
         return QString("???");
     }
@@ -56,23 +56,23 @@ QString BitcoinUnits::name(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case PHR:
-            return QString("PHR");
-        case mPHR:
-            return QString("mPHR");
-        case uPHR:
-            return QString::fromUtf8("μPHR");
+        case SOVE:
+            return QString("SOVE");
+        case mSOVE:
+            return QString("mSOVE");
+        case uSOVE:
+            return QString::fromUtf8("μSOVE");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
-        case PHR:
-            return QString("tPHR");
-        case mPHR:
-            return QString("mtPHR");
-        case uPHR:
-            return QString::fromUtf8("μtPHR");
+        case SOVE:
+            return QString("tSOVE");
+        case mSOVE:
+            return QString("mtSOVE");
+        case uSOVE:
+            return QString::fromUtf8("μtSOVE");
         default:
             return QString("???");
         }
@@ -83,23 +83,23 @@ QString BitcoinUnits::description(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case PHR:
-            return QString("PHR");
-        case mPHR:
-            return QString("Milli-PHR (1 / 1" THIN_SP_UTF8 "000)");
-        case uPHR:
-            return QString("Micro-PHR (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+        case SOVE:
+            return QString("SOVE");
+        case mSOVE:
+            return QString("Milli-SOVE (1 / 1" THIN_SP_UTF8 "000)");
+        case uSOVE:
+            return QString("Micro-SOVE (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
-        case PHR:
-            return QString("TestPHRs");
-        case mPHR:
-            return QString("Milli-TestPHR (1 / 1" THIN_SP_UTF8 "000)");
-        case uPHR:
-            return QString("Micro-TestPHR (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+        case SOVE:
+            return QString("TestSOVEs");
+        case mSOVE:
+            return QString("Milli-TestSOVE (1 / 1" THIN_SP_UTF8 "000)");
+        case uSOVE:
+            return QString("Micro-TestSOVE (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
@@ -109,11 +109,11 @@ QString BitcoinUnits::description(int unit)
 qint64 BitcoinUnits::factor(int unit)
 {
     switch (unit) {
-    case PHR:
+    case SOVE:
         return 100000000;
-    case mPHR:
+    case mSOVE:
         return 100000;
-    case uPHR:
+    case uSOVE:
         return 100;
     default:
         return 100000000;
@@ -123,11 +123,11 @@ qint64 BitcoinUnits::factor(int unit)
 int BitcoinUnits::decimals(int unit)
 {
     switch (unit) {
-    case PHR:
+    case SOVE:
         return 8;
-    case mPHR:
+    case mSOVE:
         return 5;
-    case uPHR:
+    case uSOVE:
         return 2;
     default:
         return 0;

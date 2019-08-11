@@ -371,7 +371,7 @@ public:
 
     // Verify and vote on finalized budget
     void CheckAndVote();
-    //total phore paid out by this budget
+    //total soverain paid out by this budget
     CAmount GetTotalPayout();
     //vote on this finalized budget as a masternode
     void SubmitVote();

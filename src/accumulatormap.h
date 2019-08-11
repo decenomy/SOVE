@@ -1,8 +1,8 @@
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef PHORE_ACCUMULATORMAP_H
-#define PHORE_ACCUMULATORMAP_H
+#ifndef SOVERAIN_ACCUMULATORMAP_H
+#define SOVERAIN_ACCUMULATORMAP_H
 
 #include "accumulatorcheckpoints.h"
 #include "libzerocoin/Accumulator.h"
@@ -25,4 +25,4 @@ public:
     uint256 GetCheckpoint();
     void Reset();
 };
-#endif //PHORE_ACCUMULATORMAP_H
+#endif //SOVERAIN_ACCUMULATORMAP_H

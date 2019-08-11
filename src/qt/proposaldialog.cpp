@@ -1,10 +1,10 @@
 // Copyright (c) 2017-2018 The Bulwark Developers
-// Copyright (c) 2019 The Phore Developers
+// Copyright (c) 2019 Soverain cryptocurrency developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include <config/phore-config.h>
+#include <config/soverain-config.h>
 #endif
 
 #include <fstream>
@@ -66,8 +66,8 @@ ProposalDialog::ProposalDialog(Mode mode, QWidget* parent) : QDialog(parent), ui
     ui->blockEdit->setValidator(new QIntValidator(1, INT_MAX));
 
     ui->addressEdit->setFont(GUIUtil::bitcoinAddressFont());
-    ui->addressEdit->setPlaceholderText(tr("The Phore public address that will receive the funds"));
-    ui->addressEdit->setToolTip(tr("The Phore public address that will receive the funds"));
+    ui->addressEdit->setPlaceholderText(tr("The Soverain public address that will receive the funds"));
+    ui->addressEdit->setToolTip(tr("The Soverain public address that will receive the funds"));
 
     ui->amountEdit->setFont(GUIUtil::bitcoinAddressFont());
     ui->amountEdit->setPlaceholderText(tr("The amount to be paid per month or cycle"));
@@ -242,7 +242,7 @@ bool ProposalDialog::validateProposal()
     if (nBlockEnd < pindexPrev->nHeight) strError = "Invalid ending block, starting block + (payment_cycle*payments) must be more than current height.";
 
     std::string address = ui->addressEdit->text().toStdString();
-    if (!IsValidDestinationString(address)) strError = "Invalid Phore address";
+    if (!IsValidDestinationString(address)) strError = "Invalid Soverain address";
 
     if (!strError.empty()) 
     {

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PHORE_DETERMINISTICMINT_H
-#define PHORE_DETERMINISTICMINT_H
+#ifndef SOVERAIN_DETERMINISTICMINT_H
+#define SOVERAIN_DETERMINISTICMINT_H
 
 #include "libzerocoin/Denominations.h"
 #include "uint256.h"
@@ -64,4 +64,4 @@ public:
     };
 };
 
-#endif //PHORE_DETERMINISTICMINT_H
+#endif //SOVERAIN_DETERMINISTICMINT_H

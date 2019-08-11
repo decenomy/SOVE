@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The Bitcoin developers
 // Copyright (c) 2016-2017 The PIVX developers
-// Copyright (c) 2019 The Phore Developers
+// Copyright (c) 2019 Soverain cryptocurrency developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -16,7 +16,7 @@
 #include "primitives/zerocoin.h"
 #include "libzerocoin/Accumulator.h"
 #include "libzerocoin/Denominations.h"
-#include "zphrtracker.h"
+#include "zsovetracker.h"
 
 #include <list>
 #include <stdint.h>
@@ -177,14 +177,14 @@ public:
     bool ReadZerocoinSpendSerialEntry(const CBigNum& bnSerial);
     bool WriteCurrentSeedHash(const uint256& hashSeed);
     bool ReadCurrentSeedHash(uint256& hashSeed);
-    bool WriteZPHRSeed(const uint256& hashSeed, const vector<unsigned char>& seed);
-    bool ReadZPHRSeed(const uint256& hashSeed, vector<unsigned char>& seed);
-    bool ReadZPHRSeed_deprecated(uint256& seed);
-    bool EraseZPHRSeed();
-    bool EraseZPHRSeed_deprecated();
+    bool WriteZSOVESeed(const uint256& hashSeed, const vector<unsigned char>& seed);
+    bool ReadZSOVESeed(const uint256& hashSeed, vector<unsigned char>& seed);
+    bool ReadZSOVESeed_deprecated(uint256& seed);
+    bool EraseZSOVESeed();
+    bool EraseZSOVESeed_deprecated();
 
-    bool WriteZPHRCount(const uint32_t& nCount);
-    bool ReadZPHRCount(uint32_t& nCount);
+    bool WriteZSOVECount(const uint32_t& nCount);
+    bool ReadZSOVECount(uint32_t& nCount);
     std::map<uint256, std::vector<pair<uint256, uint32_t> > > MapMintPool();
     bool WriteMintPoolPair(const uint256& hashMasterSeed, const uint256& hashPubcoin, const uint32_t& nCount);
 
