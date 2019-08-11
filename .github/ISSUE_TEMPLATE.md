@@ -1,7 +1,7 @@
 <!--- Remove this description and sections that do not apply -->
 
 This issue tracker is only for technical issues related to Phore Core.
-General Phore questions and/or support requests and are best directed to the [Phore Discord](https://discord.gg/sbgdcdv).
+General Phore questions and/or support requests and are best directed to the [Soverain Discord](https://discord.gg/soverain).
 
 ### Describe the issue
 
