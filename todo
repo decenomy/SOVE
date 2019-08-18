@@ -1,0 +1,1 @@
+1. Add a transition period for the masternode collateral change (activemasternode.cpp,masternode.cpp,masternodeman.cpp,obfuscation.cpp,wallet.cpp,util.h)
