@@ -1416,7 +1416,7 @@ Ange en lösenfras i den mellersta boxen. Tryck kryptera för att beräkna den k
     </message>
     </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZSoveControlDialog</name>
     </context>
 <context>
     <name>soverain-core</name>

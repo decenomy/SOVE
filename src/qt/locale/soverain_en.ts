@@ -2994,7 +2994,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     <message>
         <location line="+52"/>
         <location line="+46"/>
-        <source>Enter an amount of Phr to convert to zPhr</source>
+        <source>Enter an amount of Sove to convert to zSove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3073,12 +3073,12 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+45"/>
-        <source>zPhr Control</source>
+        <source>zSove Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>zPhr Selected:</source>
+        <source>zSove Selected:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3590,7 +3590,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+3"/>
-        <source>zPhr Mint</source>
+        <source>zSove Mint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5546,27 +5546,27 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+2"/>
-        <source>Converted Phr to zPhr</source>
+        <source>Converted Sove to zSove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Spent zPhr</source>
+        <source>Spent zSove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Received Phr from zPhr</source>
+        <source>Received Sove from zSove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Minted Change as zPhr from zPhr Spend</source>
+        <source>Minted Change as zSove from zSove Spend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Converted zPhr to Phr</source>
+        <source>Converted zSove to Sove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5576,7 +5576,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+22"/>
-        <source>zPhr Accumulator</source>
+        <source>zSove Accumulator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5715,7 +5715,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+1"/>
-        <source>Received Phr from zPhr</source>
+        <source>Received Sove from zSove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5730,7 +5730,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+1"/>
-        <source>Zerocoin Spend, Change in zPhr</source>
+        <source>Zerocoin Spend, Change in zSove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5940,10 +5940,10 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
 </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZSoveControlDialog</name>
     <message>
         <location filename="../forms/zsovecontroldialog.ui" line="+20"/>
-        <source>Select zPhr to Spend</source>
+        <source>Select zSove to Spend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5959,7 +5959,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="-7"/>
-        <source>zPhr</source>
+        <source>zSove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

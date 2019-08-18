@@ -294,16 +294,16 @@ void PrivacyDialog::on_pushButtonSpendzSOVE_clicked()
     sendzSOVE();
 }
 
-void PrivacyDialog::on_pushButtonZPhrControl_clicked()
+void PrivacyDialog::on_pushButtonZSoveControl_clicked()
 {
     if (!walletModel || !walletModel->getOptionsModel())
         return;
-    ZPhrControlDialog* zPhrControl = new ZPhrControlDialog(this);
-    zPhrControl->setModel(walletModel);
-    zPhrControl->exec();
+    ZSoveControlDialog* zSoveControl = new ZSoveControlDialog(this);
+    zSoveControl->setModel(walletModel);
+    zSoveControl->exec();
 }
 
-void PrivacyDialog::setZPhrControlLabels(int64_t nAmount, int nQuantity)
+void PrivacyDialog::setZSoveControlLabels(int64_t nAmount, int nQuantity)
 {
     ui->labelzSOVESelected_int->setText(QString::number(nAmount));
     ui->labelQuantitySelected_int->setText(QString::number(nQuantity));
@@ -415,8 +415,8 @@ void PrivacyDialog::sendzSOVE()
     // use mints from zSOVE selector if applicable
     vector<CMintMeta> vMintsToFetch;
     vector<CZerocoinMint> vMintsSelected;
-    if (!ZPhrControlDialog::setSelectedMints.empty()) {
-        vMintsToFetch = ZPhrControlDialog::GetSelectedMints();
+    if (!ZSoveControlDialog::setSelectedMints.empty()) {
+        vMintsToFetch = ZSoveControlDialog::GetSelectedMints();
 
         for (auto& meta : vMintsToFetch) {
             if (meta.nVersion < libzerocoin::PrivateCoin::PUBKEY_VERSION) {
@@ -488,7 +488,7 @@ void PrivacyDialog::sendzSOVE()
     }
 
     // Clear zsove selector in case it was used
-    ZPhrControlDialog::setSelectedMints.clear();
+    ZSoveControlDialog::setSelectedMints.clear();
     ui->labelzSOVESelected_int->setText(QString("0"));
     ui->labelQuantitySelected_int->setText(QString("0"));
 
@@ -507,7 +507,7 @@ void PrivacyDialog::sendzSOVE()
 
     CAmount nValueOut = 0;
     for (const CTxOut& txout: wtxNew.vout) {
-        strStats += tr("value out: ") + FormatMoney(txout.nValue).c_str() + " Phr, ";
+        strStats += tr("value out: ") + FormatMoney(txout.nValue).c_str() + " Sove, ";
         nValueOut += txout.nValue;
 
         strStats += tr("address: ");

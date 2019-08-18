@@ -2080,7 +2080,7 @@ https://www.transifex.com/soverain-project/soverain-project-translations</transl
         <translation>표시된 정보가 오래되었을 수 있습니다. 연결이 완료되면 지갑이 Soverain 네트워크와 자동으로 동기화될 예정이지만, 아직 해당 프로세스가 완료되지 않았습니다.</translation>
     </message>
     <message>
-        <source>Enter an amount of Phr to convert to zPhr</source>
+        <source>Enter an amount of Sove to convert to zSove</source>
         <translation>zSOVE로 변환할 SOVE 수량을 입력하세요.</translation>
     </message>
     <message>
@@ -2136,11 +2136,11 @@ https://www.transifex.com/soverain-project/soverain-project-translations</transl
         <translation>마지막 발행 이후 상태나 메세지</translation>
     </message>
     <message>
-        <source>zPhr Control</source>
+        <source>zSove Control</source>
         <translation>zSOVE 설정</translation>
     </message>
     <message>
-        <source>zPhr Selected:</source>
+        <source>zSove Selected:</source>
         <translation>선택한 zSOVE : </translation>
     </message>
     <message>
@@ -2478,8 +2478,8 @@ Please be patient...</source>
         <translation>제로코인 송금 실패 상태 =</translation>
     </message>
     <message>
-        <source>zPhr Spend #: </source>
-        <translation>zPhr 송금 #: </translation>
+        <source>zSove Spend #: </source>
+        <translation>zSove 송금 #: </translation>
     </message>
     <message>
         <source>denomination: </source>
@@ -2502,7 +2502,7 @@ Please be patient...</source>
         <translation>주소:</translation>
     </message>
     <message>
-        <source>zPhr Mint</source>
+        <source>zSove Mint</source>
         <translation>zSOVE 생성</translation>
     </message>
     <message>
@@ -3961,32 +3961,32 @@ Please be patient...</source>
         <translation>난독화</translation>
     </message>
     <message>
-        <source>Converted Phr to zPhr</source>
+        <source>Converted Sove to zSove</source>
         <translation>zSOVE로 변환된 SOVE</translation>
     </message>
     <message>
-        <source>Spent zPhr</source>
+        <source>Spent zSove</source>
         <translation>전송된 zSOVE</translation>
     </message>
     <message>
-        <source>Received Phr from zPhr</source>
+        <source>Received Sove from zSove</source>
         <translation>zSOVE로 전송받은 SOVE</translation>
     </message>
     <message>
-        <source>Minted Change as zPhr from zPhr Spend</source>
+        <source>Minted Change as zSove from zSove Spend</source>
         <translation>zSOVE 전송후 남은 잔돈 zSOVE 생성됨</translation>
     </message>
     <message>
-        <source>Converted zPhr to Phr</source>
-        <translation>zPhr에서 Phr로 변환됨</translation>
+        <source>Converted zSove to Sove</source>
+        <translation>zSove에서 Sove로 변환됨</translation>
     </message>
     <message>
         <source>watch-only</source>
         <translation>읽기 전용</translation>
     </message>
     <message>
-        <source>zPhr Accumulator</source>
-        <translation>zPhr 누산기</translation>
+        <source>zSove Accumulator</source>
+        <translation>zSove 누산기</translation>
     </message>
     <message>
         <source>(n/a)</source>
@@ -4096,7 +4096,7 @@ Please be patient...</source>
         <translation>마스터노드 보상 </translation>
     </message>
     <message>
-        <source>Received Phr from zPhr</source>
+        <source>Received Sove from zSove</source>
         <translation>zSOVE로 전송받은 SOVE</translation>
     </message>
     <message>
@@ -4108,7 +4108,7 @@ Please be patient...</source>
         <translation>제로코인 전송</translation>
     </message>
     <message>
-        <source>Zerocoin Spend, Change in zPhr</source>
+        <source>Zerocoin Spend, Change in zSove</source>
         <translation>제로코인 전송, 잔돈은 zSOVE</translation>
     </message>
     <message>
@@ -4277,9 +4277,9 @@ Please be patient...</source>
     </message>
 </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZSoveControlDialog</name>
     <message>
-        <source>Select zPhr to Spend</source>
+        <source>Select zSove to Spend</source>
         <translation>전송할 zSOVE 선택</translation>
     </message>
     <message>
@@ -4291,8 +4291,8 @@ Please be patient...</source>
         <translation>0</translation>
     </message>
     <message>
-        <source>zPhr</source>
-        <translation>zPhr</translation>
+        <source>zSove</source>
+        <translation>zSove</translation>
     </message>
     <message>
         <source>Select/Deselect All</source>

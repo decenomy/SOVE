@@ -2032,8 +2032,8 @@ https://www.transifex.com/soverain-project/soverain-project-translations</transl
         <translation>Возможно отображаемая информация устарела. Ваш кошелек автоматически синхронизируется с сетью Soverain после установки соединения, но этот процесс еще не завершен. </translation>
     </message>
     <message>
-        <source>Enter an amount of Phr to convert to zPhr</source>
-        <translation>Введите сумму в Phr для  конвертации в zPhr</translation>
+        <source>Enter an amount of Sove to convert to zSove</source>
+        <translation>Введите сумму в Sove для  конвертации в zSove</translation>
     </message>
     <message>
         <source>Mint Zerocoin</source>
@@ -3198,7 +3198,7 @@ https://www.transifex.com/soverain-project/soverain-project-translations</transl
     </message>
     </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZSoveControlDialog</name>
     <message>
         <source>0</source>
         <translation>0</translation>

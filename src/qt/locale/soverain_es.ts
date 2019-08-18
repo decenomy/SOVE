@@ -2080,8 +2080,8 @@ https://www.transifex.com/soverain-project/soverain-project-translations</transl
         <translation>La información mostrada puede estar desactualizada. Su monedero se sincroniza automáticamente con la red Soverain después de establecer una conexión, pero este proceso aún no se ha completado.</translation>
     </message>
     <message>
-        <source>Enter an amount of Phr to convert to zPhr</source>
-        <translation>Introduzca la cantidad de Phr que desea convertir a zPhr</translation>
+        <source>Enter an amount of Sove to convert to zSove</source>
+        <translation>Introduzca la cantidad de Sove que desea convertir a zSove</translation>
     </message>
     <message>
         <source>Mint Zerocoin</source>
@@ -2136,12 +2136,12 @@ https://www.transifex.com/soverain-project/soverain-project-translations</transl
         <translation>Estado y/o Mensajes de la última Acción de Creación de moneda.</translation>
     </message>
     <message>
-        <source>zPhr Control</source>
-        <translation>Control zPhr</translation>
+        <source>zSove Control</source>
+        <translation>Control zSove</translation>
     </message>
     <message>
-        <source>zPhr Selected:</source>
-        <translation>zPhr Seleccionados:</translation>
+        <source>zSove Selected:</source>
+        <translation>zSove Seleccionados:</translation>
     </message>
     <message>
         <source>Quantity Selected:</source>
@@ -2478,8 +2478,8 @@ Por favor tenga paciencia...</translation>
         <translation>Gastar Zerocoin falló con estado =</translation>
     </message>
     <message>
-        <source>zPhr Spend #: </source>
-        <translation>Gastar zPhr #:</translation>
+        <source>zSove Spend #: </source>
+        <translation>Gastar zSove #:</translation>
     </message>
     <message>
         <source>denomination: </source>
@@ -2502,8 +2502,8 @@ Por favor tenga paciencia...</translation>
         <translation>dirección:</translation>
     </message>
     <message>
-        <source>zPhr Mint</source>
-        <translation>Creación de zPhr</translation>
+        <source>zSove Mint</source>
+        <translation>Creación de zSove</translation>
     </message>
     <message>
         <source>Sending successful, return code: </source>
@@ -3959,32 +3959,32 @@ Por favor tenga paciencia...</translation>
         <translation>Ofuscado</translation>
     </message>
     <message>
-        <source>Converted Phr to zPhr</source>
-        <translation>Phr convertidos a zPhr</translation>
+        <source>Converted Sove to zSove</source>
+        <translation>Sove convertidos a zSove</translation>
     </message>
     <message>
-        <source>Spent zPhr</source>
-        <translation>zPhr Gastados</translation>
+        <source>Spent zSove</source>
+        <translation>zSove Gastados</translation>
     </message>
     <message>
-        <source>Received Phr from zPhr</source>
-        <translation>Phr recibidos desde zPhr</translation>
+        <source>Received Sove from zSove</source>
+        <translation>Sove recibidos desde zSove</translation>
     </message>
     <message>
-        <source>Minted Change as zPhr from zPhr Spend</source>
-        <translation>Cambio Creado en zPhr por un Gasto zPhr</translation>
+        <source>Minted Change as zSove from zSove Spend</source>
+        <translation>Cambio Creado en zSove por un Gasto zSove</translation>
     </message>
     <message>
-        <source>Converted zPhr to Phr</source>
-        <translation>zPhr convertidos en Phr</translation>
+        <source>Converted zSove to Sove</source>
+        <translation>zSove convertidos en Sove</translation>
     </message>
     <message>
         <source>watch-only</source>
         <translation>sólo-lectura</translation>
     </message>
     <message>
-        <source>zPhr Accumulator</source>
-        <translation>Acumulador zPhr</translation>
+        <source>zSove Accumulator</source>
+        <translation>Acumulador zSove</translation>
     </message>
     <message>
         <source>(n/a)</source>
@@ -4094,8 +4094,8 @@ Por favor tenga paciencia...</translation>
         <translation>Recompensa de Nodo Maestro</translation>
     </message>
     <message>
-        <source>Received Phr from zPhr</source>
-        <translation>Phr recibidos desde zPhr</translation>
+        <source>Received Sove from zSove</source>
+        <translation>Sove recibidos desde zSove</translation>
     </message>
     <message>
         <source>Zerocoin Mint</source>
@@ -4106,8 +4106,8 @@ Por favor tenga paciencia...</translation>
         <translation>Gasto de Zerocoin</translation>
     </message>
     <message>
-        <source>Zerocoin Spend, Change in zPhr</source>
-        <translation>Gasto de Zerocoin, Cambio en zPhr</translation>
+        <source>Zerocoin Spend, Change in zSove</source>
+        <translation>Gasto de Zerocoin, Cambio en zSove</translation>
     </message>
     <message>
         <source>Zerocoin Spend to Self</source>
@@ -4275,10 +4275,10 @@ Por favor tenga paciencia...</translation>
     </message>
 </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZSoveControlDialog</name>
     <message>
-        <source>Select zPhr to Spend</source>
-        <translation>Seleccione zPhr a Gastar</translation>
+        <source>Select zSove to Spend</source>
+        <translation>Seleccione zSove a Gastar</translation>
     </message>
     <message>
         <source>Quantity</source>
@@ -4289,8 +4289,8 @@ Por favor tenga paciencia...</translation>
         <translation>0</translation>
     </message>
     <message>
-        <source>zPhr</source>
-        <translation>zPhr</translation>
+        <source>zSove</source>
+        <translation>zSove</translation>
     </message>
     <message>
         <source>Select/Deselect All</source>

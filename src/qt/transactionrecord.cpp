@@ -86,7 +86,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet* 
                 isminetype mine = wallet->IsMine(txout);
                 TransactionRecord sub(hash, nTime);
                 sub.involvesWatchAddress = mine & ISMINE_WATCH_ONLY;
-                sub.type = TransactionRecord::ZerocoinSpend_Change_zPhr;
+                sub.type = TransactionRecord::ZerocoinSpend_Change_zSove;
                 sub.address = mapValue["zerocoinmint"];
                 sub.debit = -txout.nValue;
                 if (!fFeeAssigned) {

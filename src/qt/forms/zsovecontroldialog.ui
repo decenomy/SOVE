@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ZPhrControlDialog</class>
- <widget class="QDialog" name="ZPhrControlDialog">
+ <class>ZSoveControlDialog</class>
+ <widget class="QDialog" name="ZSoveControlDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -57,14 +57,14 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="labelZPhr">
+        <widget class="QLabel" name="labelZSove">
          <property name="text">
           <string>zSOVE</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLabel" name="labelZPhr_int">
+        <widget class="QLabel" name="labelZSove_int">
          <property name="text">
           <string>0</string>
          </property>
@@ -202,7 +202,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>ZPhrControlDialog</receiver>
+   <receiver>ZSoveControlDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -218,7 +218,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>ZPhrControlDialog</receiver>
+   <receiver>ZSoveControlDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

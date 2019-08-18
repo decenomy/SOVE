@@ -1311,7 +1311,7 @@ MultiSend: %1</translation>
     </message>
     </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZSoveControlDialog</name>
     </context>
 <context>
     <name>soverain-core</name>

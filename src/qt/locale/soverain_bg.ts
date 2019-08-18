@@ -2076,7 +2076,7 @@ https://www.transifex.com/soverain-project/soverain-project-translations</transl
         <translation>Информацията на вашия екран може би е стара. Вашия портфейла синхронизира автоматично с Soverain мрежата след като има успешна свръзка, но процеса отнема време и не е завършил все още.</translation>
     </message>
     <message>
-        <source>Enter an amount of Phr to convert to zPhr</source>
+        <source>Enter an amount of Sove to convert to zSove</source>
         <translation>Въведете колко SOVE  да се конвертират в zSOVE</translation>
     </message>
     <message>
@@ -2132,11 +2132,11 @@ https://www.transifex.com/soverain-project/soverain-project-translations</transl
         <translation>Състояния и/или Съобщения от последните действия по сечене на монети.</translation>
     </message>
     <message>
-        <source>zPhr Control</source>
+        <source>zSove Control</source>
         <translation>zSOVE Контрол</translation>
     </message>
     <message>
-        <source>zPhr Selected:</source>
+        <source>zSove Selected:</source>
         <translation>Избрани zSOVE:</translation>
     </message>
     <message>
@@ -2474,7 +2474,7 @@ Please be patient...</source>
         <translation>Харченето на Zerocoin се провали със статус =</translation>
     </message>
     <message>
-        <source>zPhr Spend #: </source>
+        <source>zSove Spend #: </source>
         <translation>zSOVE Похарчени #:</translation>
     </message>
     <message>
@@ -2498,7 +2498,7 @@ Please be patient...</source>
         <translation>адрес:</translation>
     </message>
     <message>
-        <source>zPhr Mint</source>
+        <source>zSove Mint</source>
         <translation>Сечене на zSOVE</translation>
     </message>
     <message>
@@ -3955,23 +3955,23 @@ Please be patient...</source>
         <translation>Обфускирани</translation>
     </message>
     <message>
-        <source>Converted Phr to zPhr</source>
+        <source>Converted Sove to zSove</source>
         <translation>Конвертиран SOVE във zSOVE</translation>
     </message>
     <message>
-        <source>Spent zPhr</source>
+        <source>Spent zSove</source>
         <translation>Похарчени zSOVE</translation>
     </message>
     <message>
-        <source>Received Phr from zPhr</source>
+        <source>Received Sove from zSove</source>
         <translation>Получен SOVE от zSOVE</translation>
     </message>
     <message>
-        <source>Minted Change as zPhr from zPhr Spend</source>
+        <source>Minted Change as zSove from zSove Spend</source>
         <translation>Исечено ресто като zSOVE от похарчените zSOVE</translation>
     </message>
     <message>
-        <source>Converted zPhr to Phr</source>
+        <source>Converted zSove to Sove</source>
         <translation>Конвертирани zSOVE в SOVE</translation>
     </message>
     <message>
@@ -3979,7 +3979,7 @@ Please be patient...</source>
         <translation>наблюдение само</translation>
     </message>
     <message>
-        <source>zPhr Accumulator</source>
+        <source>zSove Accumulator</source>
         <translation>zSOVE Акумулатор</translation>
     </message>
     <message>
@@ -4086,7 +4086,7 @@ Please be patient...</source>
         <translation>Мастърноуд възнаграждение</translation>
     </message>
     <message>
-        <source>Received Phr from zPhr</source>
+        <source>Received Sove from zSove</source>
         <translation>Получен SOVE от zSOVE</translation>
     </message>
     <message>
@@ -4098,7 +4098,7 @@ Please be patient...</source>
         <translation>Харчене на Zerocoin</translation>
     </message>
     <message>
-        <source>Zerocoin Spend, Change in zPhr</source>
+        <source>Zerocoin Spend, Change in zSove</source>
         <translation>Харчене на Zerocoin, Ресто в zSOVE</translation>
     </message>
     <message>
@@ -4259,9 +4259,9 @@ Please be patient...</source>
     </message>
 </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZSoveControlDialog</name>
     <message>
-        <source>Select zPhr to Spend</source>
+        <source>Select zSove to Spend</source>
         <translation>Изберете zSOVE за Изпращане</translation>
     </message>
     <message>
@@ -4273,7 +4273,7 @@ Please be patient...</source>
         <translation>0</translation>
     </message>
     <message>
-        <source>zPhr</source>
+        <source>zSove</source>
         <translation>zSOVE</translation>
     </message>
     <message>

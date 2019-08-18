@@ -3888,27 +3888,27 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
         <translation>枚数は残高から増減されます。</translation>
     </message>
     <message>
-        <source>Converted Phr to zPhr</source>
+        <source>Converted Sove to zSove</source>
         <translation>SOVEをzSOVEへ変換</translation>
     </message>
     <message>
-        <source>Spent zPhr</source>
+        <source>Spent zSove</source>
         <translation>zSOVEを送金</translation>
     </message>
     <message>
-        <source>Received Phr from zPhr</source>
+        <source>Received Sove from zSove</source>
         <translation>zSOVEによる受け取り</translation>
     </message>
     <message>
-        <source>Minted Change as zPhr from zPhr Spend</source>
+        <source>Minted Change as zSove from zSove Spend</source>
         <translation>zSOVEの送金のお釣りをzSOVEに変換</translation>
     </message>
     <message>
-        <source>Converted zPhr to Phr</source>
+        <source>Converted zSove to Sove</source>
         <translation>zSOVEからSOVEへ変換</translation>
     </message>
     <message>
-        <source>zPhr Accumulator</source>
+        <source>zSove Accumulator</source>
         <translation>zSOVEアキュムレータ</translation>
     </message>
 </context>
@@ -4087,7 +4087,7 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
         <translation>から</translation>
     </message>
     <message>
-        <source>Received Phr from zPhr</source>
+        <source>Received Sove from zSove</source>
         <translation>zSOVEからSOVEへの受け取り</translation>
     </message>
     <message>
@@ -4099,7 +4099,7 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
         <translation>ゼロコインの送金</translation>
     </message>
     <message>
-        <source>Zerocoin Spend, Change in zPhr</source>
+        <source>Zerocoin Spend, Change in zSove</source>
         <translation>ゼロコインの送金,お釣りをzSOVEで受け取り</translation>
     </message>
     <message>
@@ -5462,7 +5462,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Soverain Alert&quot; admin@foo
         <translation>Soverainの全特徴を無効化する(マスターノード/匿名化/SwiftX/予算案) (0-1, デフォルト: %u)</translation>
     </message>
     <message>
-        <source>Enable automatic wallet backups triggered after each zPhr minting (0-1, default: %u)</source>
+        <source>Enable automatic wallet backups triggered after each zSove minting (0-1, default: %u)</source>
         <translation>zSOVEへの変換後自動でウォレットをバックアップする(0-1, デフォルト: %u)</translation>
     </message>
     <message>
@@ -5645,7 +5645,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Soverain Alert&quot; admin@foo
 <context>
     <name>zsovecontroldialog</name>
     <message>
-        <source>Select zPhr to Spend</source>
+        <source>Select zSove to Spend</source>
         <translation>送金したいzSOVEを選択</translation>
     </message>
     <message>
@@ -5692,7 +5692,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Soverain Alert&quot; admin@foo
         <translation>表示されている情報は古いものかもしれません。Soverainネットワークに接続後自動的に同期が行われますが、まだ同期は完了していません。</translation>
     </message>
     <message>
-        <source>Enter an amount of Phr to convert to zPhr</source>
+        <source>Enter an amount of Sove to convert to zSove</source>
         <translation>zSOVEへ変換したいSOVEの枚数を入力</translation>
     </message>
     <message>
@@ -5740,7 +5740,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Soverain Alert&quot; admin@foo
         <translation>ステータス・直前の変換アクションでのメッセージログ。</translation>
     </message>
     <message>
-        <source>zPhr Control</source>
+        <source>zSove Control</source>
         <translation>zSOVE コントロール</translation>
     </message>
     <message>

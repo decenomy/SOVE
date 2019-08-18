@@ -255,7 +255,7 @@ ProposalList::ProposalList(QWidget *parent) :
     connect(voteYesAction, SIGNAL(triggered()), this, SLOT(voteYes()));
     connect(voteNoAction, SIGNAL(triggered()), this, SLOT(voteNo()));
     connect(voteAbstainAction, SIGNAL(triggered()), this, SLOT(voteAbstain()));
-    connect(copyUrlAction, SIGNAL(triggered()), this, SLOT(copyProposalUrl()));
+//    connect(copyUrlAction, SIGNAL(triggered()), this, SLOT(copyProposalUrl()));
 
     connect(proposalWidget, SIGNAL(textChanged(QString)), this, SLOT(changedProposal(QString)));
     connect(startDateWidget, SIGNAL(textChanged(QString)), this, SLOT(chooseStartDate(QString)));

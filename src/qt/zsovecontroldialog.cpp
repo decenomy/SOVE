@@ -12,12 +12,12 @@
 using namespace std;
 using namespace libzerocoin;
 
-std::set<std::string> ZPhrControlDialog::setSelectedMints;
-std::set<CMintMeta> ZPhrControlDialog::setMints;
+std::set<std::string> ZSoveControlDialog::setSelectedMints;
+std::set<CMintMeta> ZSoveControlDialog::setMints;
 
-ZPhrControlDialog::ZPhrControlDialog(QWidget *parent) :
+ZSoveControlDialog::ZSoveControlDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ZPhrControlDialog),
+    ui(new Ui::ZSoveControlDialog),
     model(0)
 {
     ui->setupUi(this);
@@ -31,19 +31,19 @@ ZPhrControlDialog::ZPhrControlDialog(QWidget *parent) :
     connect(ui->pushButtonAll, SIGNAL(clicked()), this, SLOT(ButtonAllClicked()));
 }
 
-ZPhrControlDialog::~ZPhrControlDialog()
+ZSoveControlDialog::~ZSoveControlDialog()
 {
     delete ui;
 }
 
-void ZPhrControlDialog::setModel(WalletModel *model)
+void ZSoveControlDialog::setModel(WalletModel *model)
 {
     this->model = model;
     updateList();
 }
 
 //Update the tree widget
-void ZPhrControlDialog::updateList()
+void ZSoveControlDialog::updateList()
 {
     // need to prevent the slot from being called each time something is changed
     ui->treeWidget->blockSignals(true);
@@ -127,7 +127,7 @@ void ZPhrControlDialog::updateList()
 }
 
 // Update the list when a checkbox is clicked
-void ZPhrControlDialog::updateSelection(QTreeWidgetItem* item, int column)
+void ZSoveControlDialog::updateSelection(QTreeWidgetItem* item, int column)
 {
     // only want updates from non top level items that are available to spend
     if (item->parent() && column == COLUMN_CHECKBOX && !item->isDisabled()){
@@ -149,7 +149,7 @@ void ZPhrControlDialog::updateSelection(QTreeWidgetItem* item, int column)
 }
 
 // Update the Quantity and Amount display
-void ZPhrControlDialog::updateLabels()
+void ZSoveControlDialog::updateLabels()
 {
     int64_t nAmount = 0;
     for (const CMintMeta& mint : setMints) {
@@ -158,14 +158,14 @@ void ZPhrControlDialog::updateLabels()
     }
 
     //update this dialog's labels
-    ui->labelZPhr_int->setText(QString::number(nAmount));
+    ui->labelZSove_int->setText(QString::number(nAmount));
     ui->labelQuantity_int->setText(QString::number(setSelectedMints.size()));
 
     //update PrivacyDialog labels
-    privacyDialog->setZPhrControlLabels(nAmount, setSelectedMints.size());
+    privacyDialog->setZSoveControlLabels(nAmount, setSelectedMints.size());
 }
 
-std::vector<CMintMeta> ZPhrControlDialog::GetSelectedMints()
+std::vector<CMintMeta> ZSoveControlDialog::GetSelectedMints()
 {
     std::vector<CMintMeta> listReturn;
     for (const CMintMeta& mint : setMints) {
@@ -177,7 +177,7 @@ std::vector<CMintMeta> ZPhrControlDialog::GetSelectedMints()
 }
 
 // select or deselect all of the mints
-void ZPhrControlDialog::ButtonAllClicked()
+void ZSoveControlDialog::ButtonAllClicked()
 {
     ui->treeWidget->blockSignals(true);
     Qt::CheckState state = Qt::Checked;

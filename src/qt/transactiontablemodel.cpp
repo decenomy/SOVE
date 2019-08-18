@@ -356,15 +356,15 @@ QString TransactionTableModel::formatTxType(const TransactionRecord* wtx) const
     case TransactionRecord::Obfuscated:
         return tr("Obfuscated");
     case TransactionRecord::ZerocoinMint:
-        return tr("Converted Phr to zPhr");
+        return tr("Converted Sove to zSove");
     case TransactionRecord::ZerocoinSpend:
-        return tr("Spent zPhr");
+        return tr("Spent zSove");
     case TransactionRecord::RecvFromZerocoinSpend:
-        return tr("Received Phr from zPhr");
-    case TransactionRecord::ZerocoinSpend_Change_zPhr:
-        return tr("Minted Change as zPhr from zPhr Spend");
+        return tr("Received Sove from zSove");
+    case TransactionRecord::ZerocoinSpend_Change_zSove:
+        return tr("Minted Change as zSove from zSove Spend");
     case TransactionRecord::ZerocoinSpend_FromMe:
-        return tr("Converted zPhr to Phr");
+        return tr("Converted zSove to Sove");
 
     default:
         return QString();
@@ -419,8 +419,8 @@ QString TransactionTableModel::formatTxToAddress(const TransactionRecord* wtx, b
     case TransactionRecord::SendToOther:
         return QString::fromStdString(wtx->address) + watchAddress;
     case TransactionRecord::ZerocoinMint:
-    case TransactionRecord::ZerocoinSpend_Change_zPhr:
-        return tr("zPhr Accumulator");
+    case TransactionRecord::ZerocoinSpend_Change_zSove:
+        return tr("zSove Accumulator");
     case TransactionRecord::SendToSelf:
     default:
         return tr("(n/a)") + watchAddress;

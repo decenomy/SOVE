@@ -2534,7 +2534,7 @@ Please check the address and try again.</source>
     </message>
     </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZSoveControlDialog</name>
     <message>
         <source>0</source>
         <translation>0</translation>

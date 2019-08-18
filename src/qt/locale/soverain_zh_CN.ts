@@ -1588,7 +1588,7 @@ Address: %4
     </message>
     </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZSoveControlDialog</name>
     </context>
 <context>
     <name>soverain-core</name>

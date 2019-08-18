@@ -3761,7 +3761,7 @@ https://www.transifex.com/soverain-project/soverain-project-translations</transl
     </message>
 </context>
 <context>
-    <name>ZPhrControlDialog</name>
+    <name>ZSoveControlDialog</name>
     <message>
         <source>0</source>
         <translation>0</translation>
