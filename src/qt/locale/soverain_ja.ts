@@ -5794,8 +5794,8 @@ zSOVE are mature when they have more than 20 confirmations AND more than 1 mint 
         <translation>以前利用したアドレスを選択</translation>
     </message>
     <message>
-        <source>Enter a Soverain address (e.g. PCYiHgGJJ6xGHqivmdZrYjRnhaYf6AJ2Mp)</source>
-        <translation>Soverainアドレスを入力(例: PCYiHgGJJ6xGHqivmdZrYjRnhaYf6AJ2Mp)</translation>
+        <source>Enter a Soverain address (e.g. SWPseTiCb7C7UZLxVx3t5SHEt5CmMBUbVY)</source>
+        <translation>Soverainアドレスを入力(例: SWPseTiCb7C7UZLxVx3t5SHEt5CmMBUbVY)</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
