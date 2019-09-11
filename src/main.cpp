@@ -2210,9 +2210,9 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
         return ret;
 
     switch (nHeight){
-        case      1 ... 70000: ret = blockValue / 100 * 80; break;
-//        case 201601 ... 403200: ret = blockValue / 100 * 85; break;
-        default:               ret = blockValue / 100 * 99; break;
+        case      1 ... 201600: ret = blockValue / 100 * 80; break;
+        case 201601 ... 403200: ret = blockValue / 100 * 85; break;
+        default:                ret = blockValue / 100 * 90; break;
     }
 
     return ret;
