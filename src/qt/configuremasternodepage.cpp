@@ -1,3 +1,4 @@
+// Copyright (c) 2019 The Phore Developers
 // Copyright (c) 2019 Soverain cryptocurrency developers
 // Copyright (c) 2018 The Curium developers
 // Distributed under the MIT/X11 software license, see the accompanying
