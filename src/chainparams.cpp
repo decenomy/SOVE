@@ -170,6 +170,15 @@ public:
 
         vSeeds.push_back(CDNSSeedData("0", "seed.soverain.org")); // Main Soverain DEVS DNS SEED NODE
 
+        vSeeds.push_back(CDNSSeedData("seed1.suvcoin.net", "seed1.suvcoin.net"));
+        vSeeds.push_back(CDNSSeedData("seed2.suvcoin.net", "seed2.suvcoin.net"));
+        vSeeds.push_back(CDNSSeedData("seed3.suvcoin.net", "seed3.suvcoin.net"));
+        vSeeds.push_back(CDNSSeedData("seed4.suvcoin.net", "seed4.suvcoin.net"));
+        vSeeds.push_back(CDNSSeedData("seed5.suvcoin.net", "seed5.suvcoin.net"));
+        vSeeds.push_back(CDNSSeedData("seed6.suvcoin.net", "seed6.suvcoin.net"));
+        vSeeds.push_back(CDNSSeedData("seed7.suvcoin.net", "seed7.suvcoin.net"));
+        vSeeds.push_back(CDNSSeedData("seed8.suvcoin.net", "seed8.suvcoin.net"));
+
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 63);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 13);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
