@@ -39,14 +39,13 @@ const std::string CLIENT_NAME("Soverain Core");
 
 //! First, include build.h if requested
 #ifdef HAVE_BUILD_INFO
-//#include "build.h"
-#undef HAVE_BUILD_INFO
+#include "obj/build.h"
 #endif
 
-//! git will put "#define GIT_ARCHIVE 1" on the next line inside archives.
+//! git will put "#define GIT_ARCHIVE 1" on the next line inside archives. $Format:%n#define GIT_ARCHIVE 1$
 #ifdef GIT_ARCHIVE
-#define GIT_COMMIT_ID "a1b2c3d"
-#define GIT_COMMIT_DATE "Mon, 15 Jul 2019 11:12:11 -0500"
+#define GIT_COMMIT_ID "$Format:%H$"
+#define GIT_COMMIT_DATE "$Format:%cD$"
 #endif
 
 #define BUILD_DESC_WITH_SUFFIX(maj, min, rev, build, suffix) \
@@ -90,6 +89,11 @@ static std::string FormatVersion(int nVersion)
 std::string FormatFullVersion()
 {
     return CLIENT_BUILD;
+}
+
+std::string FormatVersionFriendly()
+{
+    return FormatVersion(CLIENT_VERSION);
 }
 
 /** 
